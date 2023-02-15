@@ -1,17 +1,21 @@
 "use client";
 
+import LoadingBar from "@/components/LoadingBar";
 import { registerUser } from "@/lib/dataAccess";
-import { signIn } from "next-auth/react";
+import { Utilisateur } from "@/lib/db/repository/UserRepository";
+import { signIn, useSession } from "next-auth/react";
 import { FormEvent, useRef } from "react";
 
 export default function Home() {
-  const usernameRef = useRef<HTMLInputElement>(null);
+  const usernameRegisterRef = useRef<HTMLInputElement>(null);
+  const usernameLoginRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
+  const { data: session, status } = useSession();
 
   const login = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const credentials = {
-      username: usernameRef.current?.value,
+      username: usernameLoginRef.current?.value,
       password: pwdRef.current?.value,
     };
     const res = await signIn("credentials", {
@@ -23,13 +27,18 @@ export default function Home() {
 
   const register = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (usernameRef.current?.value) {
-      const createdUser = await registerUser(usernameRef.current?.value);
+    if (usernameRegisterRef.current?.value) {
+      const createdUser = await registerUser(
+        usernameRegisterRef.current?.value
+      );
       console.log({ createdUser });
     }
   };
+  if (status === "loading") return <LoadingBar />;
 
-  return (
+  return status === "authenticated" ? (
+    <>Bienvenue {(session.user as Utilisateur).username}</>
+  ) : (
     <div className="flex flex-row justify-around">
       <form onSubmit={login}>
         <div className="form-control w-full max-w-xs">
@@ -40,7 +49,7 @@ export default function Home() {
             type="text"
             placeholder="..."
             className="input-bordered input w-full max-w-xs"
-            ref={usernameRef}
+            ref={usernameLoginRef}
           />
         </div>
         <div className="form-control w-full max-w-xs">
@@ -48,7 +57,8 @@ export default function Home() {
             <span className="label-text">Mot de passe</span>
           </label>
           <input
-            type="password"
+            // type="password"
+            type="text"
             placeholder="..."
             className="input-bordered input w-full max-w-xs"
             ref={pwdRef}
@@ -67,7 +77,7 @@ export default function Home() {
             type="text"
             placeholder="..."
             className="input-bordered input w-full max-w-xs"
-            ref={usernameRef}
+            ref={usernameRegisterRef}
           />
         </div>
         <button className="btn-success btn" type="submit">
@@ -77,3 +87,7 @@ export default function Home() {
     </div>
   );
 }
+
+/*
+admin: Ld4TESr1
+*/

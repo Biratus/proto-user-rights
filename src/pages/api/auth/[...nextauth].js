@@ -31,10 +31,10 @@ export const authOptions = {
         // TODO prisma
         try {
           // If no error and we have user data, return it
-
+          console.log(`check ${credentials.username}`);
           const user = await UserRepository.byUsername(credentials.username);
           console.log("user", user);
-          return user ? userMatch(credentials, user) : null;
+          return user && userMatch(credentials, user) ? user : null;
         } catch (e) {
           console.log(e);
           // Return null if user data could not be retrieved
@@ -66,14 +66,13 @@ export const authOptions = {
     jwt: async ({ token, user }) => {
       // first time jwt callback is run
       if (user) {
-        token.userId = user.id;
-        // token.clientId = user.client[0].id;
+        console.log({ user });
+        token.user = user;
       }
       return token;
     },
     session: ({ session, token }) => {
-      session.userId = token.userId;
-      // session.clientId = token.clientId;
+      session.user = token.user;
       return session;
     },
   },
