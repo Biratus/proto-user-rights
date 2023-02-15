@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model droits {
+  nom               String              @id @db.VarChar(255)
+  utilisateur_droit utilisateur_droit[]
+}
+
+model utilisateur_droit {
+  id_utilisateur Int
+  droit          String       @db.VarChar(255)
+  utilisateurs   utilisateurs @relation(fields: [id_utilisateur], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "utilisateur_droit_ibfk_1")
+  droits         droits       @relation(fields: [droit], references: [nom], onDelete: NoAction, onUpdate: NoAction, map: "utilisateur_droit_ibfk_2")
+
+  @@id([id_utilisateur, droit])
+  @@index([droit], map: "utilisateur_droit_ibfk_2")
+}
+
+model utilisateurs {
+  id                Int                 @id @default(autoincrement())
+  username       String?             @db.VarChar(255) @map("identifiant")
+  password      String?             @db.VarChar(255) @map("mot_de_passe")
+  type              String?             @db.VarChar(45)
+  utilisateur_droit utilisateur_droit[]
+}
