@@ -1,6 +1,6 @@
 import { prisma } from "../prisma";
 
-interface Utilisateur {
+export interface Utilisateur {
   id?: number;
   username?: string;
   password?: string;
@@ -10,6 +10,11 @@ interface Utilisateur {
 class UserRepository {
   static async create(user: Utilisateur) {
     return await prisma.utilisateurs.create({ data: user });
+  }
+  static async forAuth({ username, password }: Utilisateur) {
+    return await prisma.utilisateurs.findFirst({
+      where: { username, password },
+    });
   }
 }
 
