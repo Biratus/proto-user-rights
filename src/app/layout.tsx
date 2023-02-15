@@ -1,6 +1,7 @@
 "use client";
 
 import { SessionProvider } from "next-auth/react";
+import AppBar from "./AppBar";
 import "./globals.css";
 export default function RootLayout({
   children,
@@ -15,7 +16,10 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <AppBar />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

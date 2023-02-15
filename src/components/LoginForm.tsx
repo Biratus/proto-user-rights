@@ -1,7 +1,8 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { FormEvent, useRef } from "react";
+import { FormEvent, RefObject, useCallback, useRef, useState } from "react";
+import { Eye, EyeOff } from "react-feather";
 
 export default function LoginForm() {
   const usernameLoginRef = useRef<HTMLInputElement>(null);
@@ -28,7 +29,7 @@ export default function LoginForm() {
         <input
           type="text"
           placeholder="..."
-          className="input-bordered input w-full max-w-xs"
+          className="input-bordered input w-full max-w-xs drop-shadow-md"
           ref={usernameLoginRef}
         />
       </div>
@@ -36,17 +37,35 @@ export default function LoginForm() {
         <label className="label">
           <span className="label-text">Mot de passe</span>
         </label>
-        <input
-          // type="password"
-          type="text"
-          placeholder="..."
-          className="input-bordered input w-full max-w-xs"
-          ref={pwdRef}
-        />
+        <PasswordInput ref={pwdRef} />
       </div>
       <button className="btn-success btn" type="submit">
         Se connecter
       </button>
     </form>
+  );
+}
+
+function PasswordInput({ ref }: { ref: RefObject<HTMLInputElement> }) {
+  const [showPwd, setShowPwd] = useState(false);
+  const toggleShowPwd = useCallback(() => {
+    setShowPwd((prev) => !prev);
+  }, []);
+  return (
+    <div className="flex items-center justify-end">
+      <input
+        // type="password"
+        type={showPwd ? "text" : "password"}
+        placeholder="..."
+        className="input-bordered input w-full max-w-xs drop-shadow-md"
+        ref={ref}
+      />
+      <span
+        className="btn-ghost btn-sm btn-circle btn absolute mr-2 cursor-pointer"
+        onClick={toggleShowPwd}
+      >
+        {showPwd ? <EyeOff /> : <Eye />}
+      </span>
+    </div>
   );
 }

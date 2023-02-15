@@ -17,11 +17,11 @@ export default function Home() {
   if (status === "loading") return <LoadingBar />;
 
   return status === "authenticated" ? (
-    <>Bienvenue {(session.user as Utilisateur).username}</>
+    <>Page d'accueil de {(session.user as Utilisateur).username}</>
   ) : (
     <div className="flex h-screen w-screen flex-row">
       <div className="flex w-1/2 items-center justify-center bg-base-300 p-5">
-        <span className="rotate-45 text-center text-7xl">
+        <span className="-rotate-45 text-center text-7xl">
           La super image d'accueil AJC
         </span>
       </div>
