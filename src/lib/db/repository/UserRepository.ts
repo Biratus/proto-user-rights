@@ -11,6 +11,13 @@ class UserRepository {
   static async create(user: Utilisateur) {
     return await prisma.utilisateurs.create({ data: user });
   }
+
+  static async byUsername(username: string) {
+    return await prisma.utilisateurs.findFirst({
+      where: { username },
+    });
+  }
+
   static async forAuth({ username, password }: Utilisateur) {
     return await prisma.utilisateurs.findFirst({
       where: { username, password },

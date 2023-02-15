@@ -1,3 +1,4 @@
+import { userMatch } from "@/lib/auth";
 import UserRepository from "@/lib/db/repository/UserRepository";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -31,9 +32,9 @@ export const authOptions = {
         try {
           // If no error and we have user data, return it
 
-          const user = await UserRepository.forAuth(credentials);
+          const user = await UserRepository.byUsername(credentials.username);
           console.log("user", user);
-          return user ? { ...user, id: user.id + "" } : null;
+          return user ? userMatch(credentials, user) : null;
         } catch (e) {
           console.log(e);
           // Return null if user data could not be retrieved

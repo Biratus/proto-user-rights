@@ -1,5 +1,6 @@
 "use client";
 
+import { registerUser } from "@/lib/dataAccess";
 import { signIn } from "next-auth/react";
 import { FormEvent, useRef } from "react";
 
@@ -19,8 +20,17 @@ export default function Home() {
     });
     console.log({ res });
   };
+
+  const register = async (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    if (usernameRef.current?.value) {
+      const createdUser = await registerUser(usernameRef.current?.value);
+      console.log({ createdUser });
+    }
+  };
+
   return (
-    <>
+    <div className="flex flex-row justify-around">
       <form onSubmit={login}>
         <div className="form-control w-full max-w-xs">
           <label className="label">
@@ -48,6 +58,22 @@ export default function Home() {
           Se connecter
         </button>
       </form>
-    </>
+      <form onSubmit={register}>
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            <span className="label-text">Identifiant</span>
+          </label>
+          <input
+            type="text"
+            placeholder="..."
+            className="input-bordered input w-full max-w-xs"
+            ref={usernameRef}
+          />
+        </div>
+        <button className="btn-success btn" type="submit">
+          S'inscrire
+        </button>
+      </form>
+    </div>
   );
 }
