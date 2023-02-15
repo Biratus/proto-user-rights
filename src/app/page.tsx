@@ -1,89 +1,55 @@
 "use client";
 
 import LoadingBar from "@/components/LoadingBar";
-import { registerUser } from "@/lib/dataAccess";
+import LoginForm from "@/components/LoginForm";
+import RegisterForm from "@/components/RegisterForm";
 import { Utilisateur } from "@/lib/db/repository/UserRepository";
-import { signIn, useSession } from "next-auth/react";
-import { FormEvent, useRef } from "react";
+import { useSession } from "next-auth/react";
+import { useCallback, useState } from "react";
 
 export default function Home() {
-  const usernameRegisterRef = useRef<HTMLInputElement>(null);
-  const usernameLoginRef = useRef<HTMLInputElement>(null);
-  const pwdRef = useRef<HTMLInputElement>(null);
   const { data: session, status } = useSession();
+  const [loginOrRegister, setLoginOrRegister] = useState(true);
 
-  const login = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    const credentials = {
-      username: usernameLoginRef.current?.value,
-      password: pwdRef.current?.value,
-    };
-    const res = await signIn("credentials", {
-      ...credentials,
-      redirect: false,
-    });
-    console.log({ res });
-  };
+  const register = useCallback(() => setLoginOrRegister(false), []);
+  const login = useCallback(() => setLoginOrRegister(true), []);
 
-  const register = async (evt: FormEvent<HTMLFormElement>) => {
-    evt.preventDefault();
-    if (usernameRegisterRef.current?.value) {
-      const createdUser = await registerUser(
-        usernameRegisterRef.current?.value
-      );
-      console.log({ createdUser });
-    }
-  };
   if (status === "loading") return <LoadingBar />;
 
   return status === "authenticated" ? (
     <>Bienvenue {(session.user as Utilisateur).username}</>
   ) : (
-    <div className="flex flex-row justify-around">
-      <form onSubmit={login}>
-        <div className="form-control w-full max-w-xs">
-          <label className="label">
-            <span className="label-text">Identifiant</span>
-          </label>
-          <input
-            type="text"
-            placeholder="..."
-            className="input-bordered input w-full max-w-xs"
-            ref={usernameLoginRef}
-          />
+    <div className="flex h-screen w-screen flex-row">
+      <div className="flex w-1/2 items-center justify-center bg-base-300 p-5">
+        <span className="rotate-45 text-center text-7xl">
+          La super image d'accueil AJC
+        </span>
+      </div>
+      <div className="flex w-1/2 items-center justify-center shadow-2xl">
+        <div className="absolute top-0 w-1/2 bg-ajcYellow p-6 text-center">
+          Bienvenue sur le nouvel outil de gestion d'AJC
         </div>
-        <div className="form-control w-full max-w-xs">
-          <label className="label">
-            <span className="label-text">Mot de passe</span>
-          </label>
-          <input
-            // type="password"
-            type="text"
-            placeholder="..."
-            className="input-bordered input w-full max-w-xs"
-            ref={pwdRef}
-          />
-        </div>
-        <button className="btn-success btn" type="submit">
-          Se connecter
-        </button>
-      </form>
-      <form onSubmit={register}>
-        <div className="form-control w-full max-w-xs">
-          <label className="label">
-            <span className="label-text">Identifiant</span>
-          </label>
-          <input
-            type="text"
-            placeholder="..."
-            className="input-bordered input w-full max-w-xs"
-            ref={usernameRegisterRef}
-          />
-        </div>
-        <button className="btn-success btn" type="submit">
-          S'inscrire
-        </button>
-      </form>
+        {loginOrRegister && (
+          <div>
+            <h2 className="text-bold mb-2 text-center text-2xl">Connexion</h2>
+            <LoginForm />
+            <a className="link mt-2 block w-full text-right" onClick={register}>
+              S'inscrire
+            </a>
+          </div>
+        )}
+        {!loginOrRegister && (
+          <div>
+            <h2 className="text-bold mb-2 text-center text-2xl">Inscription</h2>
+            <RegisterForm
+              onRegister={(createdUser) => console.log(createdUser)}
+            />
+            <a className="link mt-2 block w-full text-right" onClick={login}>
+              Se connecter
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
