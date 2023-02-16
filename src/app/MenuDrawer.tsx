@@ -2,6 +2,7 @@
 
 import { Utilisateur } from "@/lib/db/repository/UserRepository";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export const GlobalDrawerId = "global-drawer";
 export default function MenuDrawer() {
@@ -30,7 +31,7 @@ export default function MenuDrawer() {
               <span>Administrateur</span>
             </li>
             <li>
-              <a>Utilisateurs</a>
+              <Link href="/admin/utilisateurs">Utilisateurs</Link>
             </li>
           </>
         )}

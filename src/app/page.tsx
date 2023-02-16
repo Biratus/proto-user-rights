@@ -1,5 +1,6 @@
 "use client";
 
+import AlertError from "@/components/AlertError";
 import AlertSuccess from "@/components/AlertSuccess";
 import LoadingBar from "@/components/LoadingBar";
 import LoginForm from "@/components/LoginForm";
@@ -8,7 +9,6 @@ import { Utilisateur } from "@/lib/db/repository/UserRepository";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
-import { AlertCircle } from "react-feather";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -40,12 +40,7 @@ export default function Home() {
           Bienvenue sur le nouvel outil de gestion d'AJC
         </div>
         {searchParams.get("callbackUrl") && (
-          <div className="alert alert-error w-4/5 shadow-lg">
-            <div>
-              <AlertCircle />
-              <span>Vous devez vous connecter pour accéder à cette page</span>
-            </div>
-          </div>
+          <AlertError message="Vous devez vous connecter pour accéder à cette page" />
         )}
         {loginOrRegister && (
           <div>

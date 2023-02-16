@@ -1,6 +1,7 @@
 "use client";
 
 import AlertSuccess from "@/components/AlertSuccess";
+import CenterWrapper from "@/components/CenterWrapper";
 import { PasswordInput } from "@/components/PasswordInput";
 import { updateUserPassword } from "@/lib/dataAccess";
 import { Utilisateur } from "@/lib/db/repository/UserRepository";
@@ -10,6 +11,8 @@ const mockUser: Utilisateur = {
   username: "",
   password: "",
   type: "",
+  droits: [],
+  roles: [],
 };
 export default function AccountPage() {
   const pwdRef = useRef<HTMLInputElement>(null);
@@ -33,7 +36,7 @@ export default function AccountPage() {
   );
 
   return (
-    <div className="flex w-full justify-center pt-4">
+    <CenterWrapper>
       <div className="flex w-1/4 flex-col gap-3">
         <div>Vous êtes {user.type}</div>
         <h2 className="text-bold mb-2 text-center text-2xl">
@@ -52,6 +55,6 @@ export default function AccountPage() {
           </button>
         </form>
       </div>
-    </div>
+    </CenterWrapper>
   );
 }

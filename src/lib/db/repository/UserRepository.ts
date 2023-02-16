@@ -10,8 +10,8 @@ export interface Utilisateur {
   username?: string;
   password?: string;
   type?: string;
-  roles?: string[];
-  droits?: string[];
+  roles: string[];
+  droits: string[];
 }
 
 const mapUserToDB = (user: Utilisateur) => ({
@@ -24,20 +24,19 @@ const mapUserToDB = (user: Utilisateur) => ({
 });
 
 const mapDBToUser = (
-  user:
-    | (utilisateurs & {
-        droits: utilisateur_droit[];
-        roles: utilisateur_role[];
-      })
-    | null
-) => {
-  return user == null
-    ? null
-    : {
-        ...user,
-        roles: user.roles.map((r) => r.role),
-        droits: user.droits.map((d) => d.droit),
-      };
+  user: utilisateurs & {
+    droits: utilisateur_droit[];
+    roles: utilisateur_role[];
+  }
+): Utilisateur => {
+  return {
+    id: user.id,
+    username: user.username || undefined,
+    password: user.password || undefined,
+    type: user.type || undefined,
+    roles: user.roles.map((r) => r.role),
+    droits: user.droits.map((d) => d.droit),
+  };
 };
 
 class UserRepository {
@@ -51,15 +50,14 @@ class UserRepository {
   }
 
   static async byUsername(username: string) {
-    return mapDBToUser(
-      await prisma.utilisateurs.findFirst({
-        where: { username },
-        include: {
-          roles: true,
-          droits: true,
-        },
-      })
-    );
+    const user = await prisma.utilisateurs.findFirst({
+      where: { username },
+      include: {
+        roles: true,
+        droits: true,
+      },
+    });
+    return user ? mapDBToUser(user) : null;
   }
 
   static async update(user: Utilisateur) {
@@ -70,6 +68,17 @@ class UserRepository {
         ...mapUserToDB(user),
       },
     });
+  }
+
+  static async getAll() {
+    return (
+      await prisma.utilisateurs.findMany({
+        include: {
+          roles: true,
+          droits: true,
+        },
+      })
+    ).map(mapDBToUser);
   }
 }
 

@@ -66,7 +66,7 @@ export const authOptions = {
     jwt: async ({ token, user }) => {
       // first time jwt callback is run
       if (user) {
-        console.log({ user });
+        // console.log({ user });
         token.user = user;
       }
       return token;

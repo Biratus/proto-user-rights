@@ -10,7 +10,7 @@ import { GlobalDrawerId } from "./MenuDrawer";
 
 export default function AppBar() {
   const { data: session, status } = useSession();
-  const logout = useCallback(() => signOut(), []);
+  const logout = useCallback(() => signOut({ callbackUrl: "/" }), []);
 
   if (status == "unauthenticated" || status === "loading") return null;
   return (
@@ -18,7 +18,7 @@ export default function AppBar() {
       <div className="navbar-start">
         <label
           htmlFor={GlobalDrawerId}
-          className="btn-ghost drawer-button btn-square btn"
+          className="drawer-button btn-ghost btn-square btn"
         >
           <Menu />
         </label>
