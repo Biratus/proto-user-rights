@@ -1,12 +1,13 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { FormEvent, RefObject, useCallback, useRef, useState } from "react";
-import { Eye, EyeOff } from "react-feather";
+import { FormEvent, useRef } from "react";
+import { PasswordInput } from "./PasswordInput";
 
-export default function LoginForm() {
+export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
   const usernameLoginRef = useRef<HTMLInputElement>(null);
   const pwdRef = useRef<HTMLInputElement>(null);
+
   const login = async (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     const credentials = {
@@ -15,9 +16,9 @@ export default function LoginForm() {
     };
     const res = await signIn("credentials", {
       ...credentials,
-      redirect: false,
+      redirect: callbackUrl ? true : false,
+      callbackUrl,
     });
-    console.log({ res });
   };
 
   return (
@@ -43,29 +44,5 @@ export default function LoginForm() {
         Se connecter
       </button>
     </form>
-  );
-}
-
-function PasswordInput({ ref }: { ref: RefObject<HTMLInputElement> }) {
-  const [showPwd, setShowPwd] = useState(false);
-  const toggleShowPwd = useCallback(() => {
-    setShowPwd((prev) => !prev);
-  }, []);
-  return (
-    <div className="flex items-center justify-end">
-      <input
-        // type="password"
-        type={showPwd ? "text" : "password"}
-        placeholder="..."
-        className="input-bordered input w-full max-w-xs drop-shadow-md"
-        ref={ref}
-      />
-      <span
-        className="btn-ghost btn-sm btn-circle btn absolute mr-2 cursor-pointer"
-        onClick={toggleShowPwd}
-      >
-        {showPwd ? <EyeOff /> : <Eye />}
-      </span>
-    </div>
   );
 }

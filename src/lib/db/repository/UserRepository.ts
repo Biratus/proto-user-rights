@@ -18,9 +18,10 @@ class UserRepository {
     });
   }
 
-  static async forAuth({ username, password }: Utilisateur) {
-    return await prisma.utilisateurs.findFirst({
-      where: { username, password },
+  static async update(user: Utilisateur) {
+    return await prisma.utilisateurs.update({
+      where: { id: user.id },
+      data: user,
     });
   }
 }

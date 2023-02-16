@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { ok, serverError } from "@/lib/api";
 import UserRepository from "@/lib/db/repository/UserRepository";
+import { ok, serverError } from "@/lib/http/backend";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {

@@ -1,16 +1,22 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { isPost, notFound, ok, requestError, serverError } from "@/lib/api";
 import { randomPassword } from "@/lib/auth";
 import UserRepository, {
   Utilisateur,
 } from "@/lib/db/repository/UserRepository";
+import {
+  isPost,
+  notMapped,
+  ok,
+  requestError,
+  serverError,
+} from "@/lib/http/backend";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Utilisateur>
 ) {
-  if (!isPost(req)) return notFound(res, "URL Not Mapped");
+  if (!isPost(req)) return notMapped(res);
   const { username } = req.body;
   if (!username) {
     return requestError(res, "Username is not defined");

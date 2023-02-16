@@ -41,13 +41,13 @@ export default function AppBar() {
 
 function Feedback() {
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown-end dropdown">
       <label tabIndex={0} className="btn-primary btn m-1">
         Feedback
       </label>
       <div
         tabIndex={0}
-        className="card-compact card dropdown-content glass border border-base-300 bg-base-100  p-2 shadow-xl"
+        className="card dropdown-content glass card-compact border border-base-300 bg-base-100  p-2 shadow-xl"
       >
         <div className="card-body">
           <h3 className="card-title">Un retour à faire ?</h3>
@@ -69,7 +69,7 @@ function Feedback() {
 
 function SwitchTheme() {
   return (
-    <label className="swap-rotate swap btn-ghost btn-circle btn p-1">
+    <label className="swap btn-ghost swap-rotate btn-circle btn p-1">
       <input type="checkbox" />
 
       <Sun className="swap-on fill-current" />
@@ -81,7 +81,7 @@ function SwitchTheme() {
 
 function AvatarMenu() {
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown-end dropdown">
       <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
         <div className="w-10 rounded-full">
           <Image alt="utilisateur" src={unknownUser} />
@@ -97,9 +97,9 @@ function AvatarMenu() {
           </a>
         </li>
         <li>
-          <a>
+          <Link href="/account">
             <User /> Mon compte
-          </a>
+          </Link>
         </li>
         <li>
           <a>

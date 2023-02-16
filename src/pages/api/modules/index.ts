@@ -1,8 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { isGet, isPut, ok } from "../../../lib/api";
+import { isGet, isPut, ok } from "../../../lib/http/backend";
 import { modules } from "../../../lib/realData";
 
-export default async function handler(req:NextApiRequest, res:NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (isGet(req)) {
     return ok(res, modules);
   } else if (isPut(req)) {
@@ -14,6 +17,6 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
         break;
       }
     }
-    return ok(res,{});
+    return ok(res, {});
   }
 }

@@ -1,10 +1,10 @@
 import { addDays, formatISO, isWithinInterval, parseISO } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
-import { isPut, ok, requestError } from "../../../lib/api";
+import { isPut, ok, requestError } from "../../../lib/http/backend";
 import { formateurs as formateurReal, modules } from "../../../lib/realData";
 
-export default function handler(req:NextApiRequest, res:NextApiResponse) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (isPut(req)) {
     let modId = req.query.id;
     let { split, formateurs } = req.body;
@@ -12,7 +12,7 @@ export default function handler(req:NextApiRequest, res:NextApiResponse) {
     if (typeof split === "string") split = parseISO(split);
 
     let mod;
-    let modIndex:number;
+    let modIndex: number;
 
     for (let i in modules) {
       let { id } = modules[i];
@@ -65,6 +65,6 @@ export default function handler(req:NextApiRequest, res:NextApiResponse) {
 
     console.log("created", [m1, m2]);
 
-    return ok(res,null);
+    return ok(res, null);
   }
 }

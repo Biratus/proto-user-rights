@@ -3,9 +3,10 @@ import { Utilisateur } from "./db/repository/UserRepository";
 
 export async function randomPassword() {
   const pwd = generateRandomPassword();
-  const hashedPwd = await bcrypt.hash(pwd, 10);
+  const hashedPwd = await hashPassword(pwd);
   return { clear: pwd, hashed: hashedPwd };
 }
+
 function generateRandomPassword(length: number = 8) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
@@ -18,6 +19,10 @@ function generateRandomPassword(length: number = 8) {
   }
 
   return password;
+}
+
+export async function hashPassword(pwd: string) {
+  return bcrypt.hash(pwd, 10);
 }
 
 export async function userMatch(input: Utilisateur, userDB: Utilisateur) {

@@ -9,6 +9,7 @@ datasource db {
 
 model droits {
   nom               String              @id @db.VarChar(255)
+  role_droit        role_droit[]
   utilisateur_droit utilisateur_droit[]
 }
 
@@ -27,5 +28,32 @@ model utilisateurs {
   username       String?             @db.VarChar(255) @map("identifiant")
   password      String?             @db.VarChar(255) @map("mot_de_passe")
   type              String?             @db.VarChar(45)
-  utilisateur_droit utilisateur_droit[]
+  droits utilisateur_droit[]
+  roles  utilisateur_role[]
+}
+
+model role {
+  libelle                                      String             @id @db.VarChar(255)
+  droits             role_droit[]       @relation("role_droit_roleTorole")
+  utilisateur_role_utilisateur_role_roleTorole utilisateur_role[] @relation("utilisateur_role_roleTorole")
+}
+
+model role_droit {
+  role                       String @db.VarChar(255)
+  droit                      String @db.VarChar(255)
+  role_role_droit_roleTorole role   @relation("role_droit_roleTorole", fields: [role], references: [libelle], onDelete: NoAction, onUpdate: NoAction, map: "role_droit_ibfk_1")
+  droits                     droits @relation(fields: [droit], references: [nom], onDelete: NoAction, onUpdate: NoAction, map: "role_droit_ibfk_2")
+
+  @@id([role, droit])
+  @@index([droit], map: "droit")
+}
+
+model utilisateur_role {
+  id_utilisateur                   Int
+  role                             String       @db.VarChar(255)
+  utilisateurs                     utilisateurs @relation(fields: [id_utilisateur], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "utilisateur_role_ibfk_1")
+  role_utilisateur_role_roleTorole role         @relation("utilisateur_role_roleTorole", fields: [role], references: [libelle], onDelete: NoAction, onUpdate: NoAction, map: "utilisateur_role_ibfk_2")
+
+  @@id([id_utilisateur, role])
+  @@index([role], map: "role")
 }

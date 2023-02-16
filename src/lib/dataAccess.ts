@@ -2,6 +2,11 @@ import axios from "axios";
 import { Utilisateur } from "./db/repository/UserRepository";
 import { Formateur, Module } from "./types";
 
+type UpdateResponse = {
+  status: boolean;
+  message?: any;
+};
+
 export async function switchFormateur(newModule: Module) {
   try {
     const response = await axios.put("/api/modules", newModule);
@@ -38,5 +43,18 @@ export async function fetchMods(): Promise<Module[]> {
 }
 
 export async function registerUser(username: string) {
-  return (await axios.post("/api/auth/register", { username })) as Utilisateur;
+  return (await axios.post("/api/auth/register", { username }))
+    .data as Utilisateur;
+}
+
+export async function updateUserPassword(
+  user: Utilisateur
+): Promise<UpdateResponse> {
+  try {
+    const res = await axios.put("/api/user", user);
+    return { status: res.status == 200 };
+  } catch (e) {
+    console.error(e);
+    return { status: false, message: e };
+  }
 }
