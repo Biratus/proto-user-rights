@@ -3,6 +3,8 @@
 import { SessionProvider } from "next-auth/react";
 import AppBar from "./AppBar";
 import "./globals.css";
+import MenuDrawer, { GlobalDrawerId } from "./MenuDrawer";
+
 export default function RootLayout({
   children,
 }: {
@@ -18,7 +20,15 @@ export default function RootLayout({
       <body>
         <SessionProvider>
           <AppBar />
-          {children}
+          <div className="drawer">
+            <input
+              id={GlobalDrawerId}
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content">{children}</div>
+            <MenuDrawer />
+          </div>
         </SessionProvider>
       </body>
     </html>

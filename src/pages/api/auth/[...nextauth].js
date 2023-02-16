@@ -31,9 +31,8 @@ export const authOptions = {
         // TODO prisma
         try {
           // If no error and we have user data, return it
-          console.log(`check ${credentials.username}`);
           const user = await UserRepository.byUsername(credentials.username);
-          console.log("user", user);
+          console.log("auth", user);
           return user && userMatch(credentials, user) ? user : null;
         } catch (e) {
           console.log(e);

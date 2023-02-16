@@ -4,8 +4,9 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
-import { Bell, Home, LogOut, Moon, Send, Sun, User } from "react-feather";
+import { Bell, Home, LogOut, Menu, Moon, Send, Sun, User } from "react-feather";
 import unknownUser from "../../public/unknown_user.png";
+import { GlobalDrawerId } from "./MenuDrawer";
 
 export default function AppBar() {
   const { data: session, status } = useSession();
@@ -15,6 +16,12 @@ export default function AppBar() {
   return (
     <div className="navbar bg-ajcYellow-light">
       <div className="navbar-start">
+        <label
+          htmlFor={GlobalDrawerId}
+          className="btn-ghost drawer-button btn-square btn"
+        >
+          <Menu />
+        </label>
         <Link href="/" className="btn-rounded btn-ghost btn">
           <Home />
         </Link>
@@ -47,7 +54,7 @@ function Feedback() {
       </label>
       <div
         tabIndex={0}
-        className="card dropdown-content glass card-compact border border-base-300 bg-base-100  p-2 shadow-xl"
+        className="card-compact card dropdown-content glass border border-base-300 bg-base-100  p-2 shadow-xl"
       >
         <div className="card-body">
           <h3 className="card-title">Un retour à faire ?</h3>
@@ -69,7 +76,7 @@ function Feedback() {
 
 function SwitchTheme() {
   return (
-    <label className="swap btn-ghost swap-rotate btn-circle btn p-1">
+    <label className="swap-rotate swap btn-ghost btn-circle btn p-1">
       <input type="checkbox" />
 
       <Sun className="swap-on fill-current" />

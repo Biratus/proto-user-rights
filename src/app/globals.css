@@ -23,7 +23,7 @@ body {
   background-color: var(--bg-color);
 }
 
-.drawer-toggle:checked ~ .drawer-side {
+.modal-toggle:checked ~ .drawer-side {
   position: absolute;
 }
 
