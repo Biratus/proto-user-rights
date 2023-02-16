@@ -1,13 +1,13 @@
 "use client";
 
-import { Utilisateur } from "@/lib/db/repository/UserRepository";
+import { UtilisateurWithRights } from "@/lib/db/repository/UserRepository";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export const GlobalDrawerId = "global-drawer";
 export default function MenuDrawer() {
   const { data: sessionData } = useSession();
-  const user = sessionData ? (sessionData.user as Utilisateur) : null;
+  const user = sessionData ? (sessionData.user as UtilisateurWithRights) : null;
 
   return (
     <div className="drawer-side">

@@ -4,10 +4,14 @@ import AlertSuccess from "@/components/AlertSuccess";
 import CenterWrapper from "@/components/CenterWrapper";
 import { PasswordInput } from "@/components/PasswordInput";
 import { updateUserPassword } from "@/lib/dataAccess";
-import { Utilisateur } from "@/lib/db/repository/UserRepository";
+import {
+  Utilisateur,
+  UtilisateurWithRights,
+} from "@/lib/db/repository/UserRepository";
 import { useSession } from "next-auth/react";
 import { FormEvent, useCallback, useRef, useState } from "react";
-const mockUser: Utilisateur = {
+const mockUser: UtilisateurWithRights = {
+  id: 0,
   username: "",
   password: "",
   type: "",

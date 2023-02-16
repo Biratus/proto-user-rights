@@ -6,29 +6,23 @@ import {
 import { prisma } from "../prisma";
 
 export interface Utilisateur {
-  id?: number;
+  id: number;
   username?: string;
   password?: string;
   type?: string;
+}
+
+export interface UtilisateurWithRights extends Utilisateur {
   roles: string[];
   droits: string[];
 }
-
-const mapUserToDB = (user: Utilisateur) => ({
-  droits: {
-    createMany: { data: user.droits?.map((s) => ({ droit: s })) || [] },
-  },
-  roles: {
-    createMany: { data: user.roles?.map((r) => ({ role: r })) || [] },
-  },
-});
 
 const mapDBToUser = (
   user: utilisateurs & {
     droits: utilisateur_droit[];
     roles: utilisateur_role[];
   }
-): Utilisateur => {
+): UtilisateurWithRights => {
   return {
     id: user.id,
     username: user.username || undefined,
@@ -40,11 +34,10 @@ const mapDBToUser = (
 };
 
 class UserRepository {
-  static async create(user: Utilisateur) {
+  static async create(user: Omit<Utilisateur, "id">) {
     return await prisma.utilisateurs.create({
       data: {
         ...user,
-        ...mapUserToDB(user),
       },
     });
   }
@@ -65,7 +58,6 @@ class UserRepository {
       where: { id: user.id },
       data: {
         ...user,
-        ...mapUserToDB(user),
       },
     });
   }

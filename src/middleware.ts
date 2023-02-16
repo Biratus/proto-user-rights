@@ -1,7 +1,7 @@
 // export { default } from "next-auth/middleware";
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { Utilisateur } from "./lib/db/repository/UserRepository";
+import { UtilisateurWithRights } from "./lib/db/repository/UserRepository";
 
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
@@ -11,8 +11,7 @@ export default withAuth(
     //   new URL(`/?cause=unauthorized&url=${req.nextUrl.pathname}`, req.url)
     // );
     const roles: string[] =
-      (req.nextauth.token!.user! as Utilisateur).roles || [];
-    console.log("roles", roles);
+      (req.nextauth.token!.user! as UtilisateurWithRights).roles || [];
     if (
       req.nextUrl.pathname.startsWith("/admin") &&
       !roles.includes("ADMINISTRATEUR")
