@@ -27,17 +27,17 @@ export default function Home() {
   if (status === "loading") return <LoadingBar />;
 
   return status === "authenticated" ? (
-    <>Page d'accueil de {(session.user as Utilisateur).username}</>
+    <>Page d&apos;accueil de {(session.user as Utilisateur).username}</>
   ) : (
     <div className="flex h-screen w-screen flex-row">
       <div className="flex w-1/2 items-center justify-center bg-base-300 p-5">
         <span className="-rotate-45 text-center text-7xl">
-          La super image d'accueil AJC
+          La super image d&apos;accueil AJC
         </span>
       </div>
       <div className="flex w-1/2 flex-col items-center justify-center gap-4 shadow-2xl">
         <div className="absolute top-0 w-1/2 bg-ajcYellow p-6 text-center">
-          Bienvenue sur le nouvel outil de gestion d'AJC
+          Bienvenue sur le nouvel outil de gestion d&apos;AJC
         </div>
         {searchParams.get("callbackUrl") && (
           <AlertError message="Vous devez vous connecter pour accéder à cette page" />
@@ -49,7 +49,7 @@ export default function Home() {
               callbackUrl={searchParams.get("callbackUrl") || undefined}
             />
             <a className="link mt-2 block w-full text-right" onClick={register}>
-              S'inscrire
+              S&apos;inscrire
             </a>
           </div>
         )}

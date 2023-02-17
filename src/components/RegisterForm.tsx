@@ -34,7 +34,7 @@ export default function RegisterForm({
         />
       </div>
       <button className="btn-success btn" type="submit">
-        S'inscrire
+        S&apos;inscrire
       </button>
     </form>
   );

@@ -1,4 +1,3 @@
-import { Interval } from "@/components/calendar/types";
 import {
   areIntervalsOverlapping,
   formatISO,
@@ -9,7 +8,7 @@ import {
 } from "date-fns";
 import { parse } from "./date";
 import { includesIgnoreCase } from "./strings";
-import { Formateur, Module, RawModule } from "./types";
+import { Formateur, Interval, Module, RawModule } from "./types";
 
 /* ----------------------
 
