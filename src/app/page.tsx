@@ -2,7 +2,8 @@
 
 import AlertError from "@/components/AlertError";
 import AlertSuccess from "@/components/AlertSuccess";
-import LoadingBar from "@/components/LoadingBar";
+import CenterWrapper from "@/components/CenterWrapper";
+import LoadingBar from "@/components/LoadingBar/LoadingBar";
 import LoginForm from "@/components/LoginForm";
 import RegisterForm from "@/components/RegisterForm";
 import { Utilisateur } from "@/lib/db/repository/UserRepository";
@@ -27,7 +28,14 @@ export default function Home() {
   if (status === "loading") return <LoadingBar />;
 
   return status === "authenticated" ? (
-    <>Page d&apos;accueil de {(session.user as Utilisateur).username}</>
+    <CenterWrapper>
+      <div className="mt-4 text-2xl font-bold">
+        Page d&apos;accueil de{" "}
+        <span className="underline">
+          {(session.user as Utilisateur).username}
+        </span>
+      </div>
+    </CenterWrapper>
   ) : (
     <div className="flex h-screen w-screen flex-row">
       <div className="flex w-1/2 items-center justify-center bg-base-300 p-5">
