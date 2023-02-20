@@ -31,7 +31,7 @@ export default async function RootLayout({
               className="drawer-toggle"
             />
             <div className="drawer-content overflow-y-hidden">{children}</div>
-            <MenuDrawer />
+            {session && <MenuDrawer user={session.user} />}
           </div>
         </AuthContext>
       </body>
