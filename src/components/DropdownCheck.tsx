@@ -1,5 +1,5 @@
 "use client";
-import { Check, Plus } from "react-feather";
+import { Check, MoreHorizontal } from "react-feather";
 
 type Item<T> = {
   label: string;
@@ -9,10 +9,14 @@ type Item<T> = {
 
 interface DropDownCheckProps<T> {
   items: Item<T>[];
+  size?: string;
+  side?: string;
   onSubmit: (items: T[]) => void;
 }
 export default function DropdownCheck<T>({
   items,
+  size = "md",
+  side = "right",
   onSubmit,
 }: DropDownCheckProps<T>) {
   const updatingItems = items.map((i) => ({ ...i })); // Besoin de la copie sinon c'est la reference qui est mise à jour !
@@ -27,12 +31,14 @@ export default function DropdownCheck<T>({
     onSubmit(updatingItems.filter((i) => i.selected).map((i) => i.value));
   };
   return (
-    <div className="dropdown dropdown-right">
+    <div className={`dropdown-${side} dropdown flex items-center`}>
       <label
         tabIndex={0}
-        className="btn-primary btn-outline btn-sm btn-square btn m-1"
+        // className={`btn-outline btn-primary btn-${size} btn-square btn m-1`}
+        className={`badge badge-${size} cursor-pointer`}
       >
-        <Plus />
+        {/* <Plus /> */}
+        <MoreHorizontal />
       </label>
       <div
         tabIndex={0}

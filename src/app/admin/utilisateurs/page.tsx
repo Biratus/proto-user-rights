@@ -11,16 +11,26 @@ export default async function UtilisateursPage() {
   ]);
   return (
     <CenterWrapper style={{ className: "mt-2" }}>
-      <div className="flex w-1/2 flex-col gap-2">
-        {users.map((user) => (
-          <UserRightManagement
-            key={user.id}
-            user={user}
-            droits={droits}
-            roles={roles}
-          />
-        ))}
-      </div>
+      <table className="table-zebra table w-4/5">
+        <thead>
+          <tr>
+            <th>Identifiant</th>
+            <th>Type</th>
+            <th>Roles</th>
+            <th>Droits</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <UserRightManagement
+              key={user.id}
+              user={user}
+              droits={droits}
+              roles={roles}
+            />
+          ))}
+        </tbody>
+      </table>
     </CenterWrapper>
   );
 }

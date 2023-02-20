@@ -31,55 +31,48 @@ export default function UserRightManagement({
   };
 
   return (
-    <div className="collapse-plus collapse overflow-visible">
-      <input type="checkbox" className="peer" />
-      <div className="collapse-title flex justify-between rounded-xl bg-gradient-to-b from-transparent to-primary text-lg font-bold text-neutral peer-checked:bg-gradient-to-t">
-        <span>
-          {user.username} {user.type}
-        </span>
-        {/* <span>
-          <button className="btn-success btn-sm btn-square btn">
-            <Check />
-          </button>
-        </span> */}
-      </div>
-      <div className="collapse-content peer-checked:overflow-visible">
-        <div className="ml-5 flex flex-col gap-3 rounded-lg border border-base-300 p-4 text-base-content shadow-inner">
-          <div className="flex flex-row items-center gap-3 text-sm font-bold">
-            <span>Roles</span>
-            <DropdownCheck
-              items={roles.map((r) => ({
-                label: r,
-                value: r,
-                selected: user.roles.includes(r),
-              }))}
-              onSubmit={updateRoles}
-            />
-          </div>
+    <tr>
+      <td>{user.username}</td>
+      <td>{user.type}</td>
+      <td className="w-1/3">
+        <div className="wrap flex items-center gap-2">
           <AuthList items={user.roles} />
-          <div className="flex flex-row items-center gap-3 text-sm font-bold ">
-            <span>Droits</span>
-            <DropdownCheck
-              items={droits.map((d) => ({
-                label: d,
-                value: d,
-                selected: user.droits.includes(d),
-              }))}
-              onSubmit={updateDroits}
-            />
-          </div>
-          <AuthList items={user.droits} />
+          <DropdownCheck
+            size="sm"
+            items={roles.map((r) => ({
+              label: r,
+              value: r,
+              selected: user.roles.includes(r),
+            }))}
+            onSubmit={updateRoles}
+          />
         </div>
-      </div>
-    </div>
+      </td>
+      <td className="w-1/3">
+        <div className="wrap flex items-center gap-2">
+          <AuthList items={user.droits} />
+          <DropdownCheck
+            side="left"
+            size="sm"
+            items={droits.map((d) => ({
+              label: d,
+              value: d,
+              selected: user.droits.includes(d),
+            }))}
+            onSubmit={updateDroits}
+          />
+        </div>
+      </td>
+    </tr>
   );
 }
 
 function AuthList({ items }: { items: string[] }) {
+  if (items.length == 0) return null;
   return (
-    <div className="ml-4 flex gap-3">
+    <div className="flex flex-wrap gap-3">
       {items.map((label, i) => (
-        <div key={i} className="badge-primary badge badge-md">
+        <div key={i} className="badge badge-primary badge-md">
           {label}
         </div>
       ))}

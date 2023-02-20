@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
@@ -33,7 +34,8 @@ module.exports = {
           primary: "#233755",
           secondary: "#395D75",
           accent: "#ccb76b",
-          // neutral: "#181830",
+          "base-200": colors.indigo[100],
+          "base-300": colors.indigo[200],
           info: "#3aa9ce",
           success: "#69c352",
           warning: "#c2592d",
