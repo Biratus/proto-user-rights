@@ -56,11 +56,7 @@ export default function UserRightManagement({
               onSubmit={updateRoles}
             />
           </div>
-          {user.roles.map((r) => (
-            <div key={r} className="ml-4">
-              {r}
-            </div>
-          ))}
+          <AuthList items={user.roles} />
           <div className="flex flex-row items-center gap-3 text-sm font-bold ">
             <span>Droits</span>
             <DropdownCheck
@@ -72,13 +68,21 @@ export default function UserRightManagement({
               onSubmit={updateDroits}
             />
           </div>
-          {user.droits.map((d) => (
-            <div key={d} className="ml-4">
-              {d}
-            </div>
-          ))}
+          <AuthList items={user.droits} />
         </div>
       </div>
+    </div>
+  );
+}
+
+function AuthList({ items }: { items: string[] }) {
+  return (
+    <div className="ml-4 flex gap-3">
+      {items.map((label, i) => (
+        <div key={i} className="badge-primary badge badge-md">
+          {label}
+        </div>
+      ))}
     </div>
   );
 }

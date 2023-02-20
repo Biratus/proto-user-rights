@@ -13,13 +13,13 @@ module.exports = {
     colors: {
       ajcYellow: {
         DEFAULT: "#ccb76b",
-        dark: "#8E804A", //"#99873e",
-        light: "#D6C588", //"#ffe99a",
+        dark: "#99873e", //"#99873e",
+        light: "#ffe99a", //"#ffe99a",
       },
       ajcBlue: {
         DEFAULT: "#233755",
-        dark: "#18263B",
-        light: "#4F5F77",
+        dark: "#00112c",
+        light: "#4f6182",
       },
     },
   },
