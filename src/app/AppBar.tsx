@@ -1,17 +1,18 @@
 import { LogoutButton, LogoutLink } from "@/components/Logouts";
+import SwitchTheme from "@/components/theme/SwitchTheme";
 import Image from "next/image";
 import Link from "next/link";
-import { Bell, Home, Menu, Moon, Send, Sun, User } from "react-feather";
+import { Bell, Home, Menu, Send, User } from "react-feather";
 import unknownUser from "../../public/unknown_user.png";
 import { GlobalDrawerId } from "./MenuDrawer";
 
 export default function AppBar() {
   return (
-    <div className="navbar bg-ajcYellow-light">
+    <div className="navbar bg-secondary">
       <div className="navbar-start">
         <label
           htmlFor={GlobalDrawerId}
-          className="btn-ghost drawer-button btn-square btn"
+          className="drawer-button btn-ghost btn-square btn"
         >
           <Menu />
         </label>
@@ -40,7 +41,7 @@ export default function AppBar() {
 function Feedback() {
   return (
     <div className="dropdown-end dropdown">
-      <label tabIndex={0} className="btn-primary btn m-1">
+      <label tabIndex={0} className="btn-accent btn m-1">
         Feedback
       </label>
       <div
@@ -65,22 +66,13 @@ function Feedback() {
   );
 }
 
-function SwitchTheme() {
-  return (
-    <label className="swap-rotate swap btn-ghost btn-circle btn p-1">
-      <input type="checkbox" />
-
-      <Sun className="swap-on fill-current" />
-
-      <Moon className="swap-off fill-current" />
-    </label>
-  );
-}
-
 function AvatarMenu() {
   return (
     <div className="dropdown-end dropdown">
-      <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
+      <label
+        tabIndex={0}
+        className="btn-ghost btn-secondary  btn-circle avatar btn"
+      >
         <div className="w-10 rounded-full">
           <Image alt="utilisateur" src={unknownUser} />
         </div>
@@ -109,10 +101,10 @@ function AvatarMenu() {
 
 function Notification() {
   return (
-    <button className="btn-ghost btn-circle btn">
+    <button className="btn-ghost btn-secondary btn-circle btn">
       <div className="indicator">
         <Bell />{" "}
-        <span className="badge-primary badge badge-xs indicator-item">4</span>
+        <span className="badge-accent badge badge-xs indicator-item">4</span>
       </div>
     </button>
   );

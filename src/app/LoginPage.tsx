@@ -28,7 +28,7 @@ export default function LoginPage() {
         </span>
       </div>
       <div className="flex w-1/2 flex-col items-center justify-center gap-4 shadow-2xl">
-        <div className="absolute top-0 w-1/2 bg-ajcYellow p-6 text-center">
+        <div className="absolute top-0 w-1/2 bg-secondary p-6 text-center">
           Bienvenue sur le nouvel outil de gestion d&apos;AJC
         </div>
         {searchParams.get("callbackUrl") && (

@@ -33,7 +33,7 @@ export default function UserRightManagement({
   return (
     <div className="collapse-plus collapse overflow-visible">
       <input type="checkbox" className="peer" />
-      <div className="collapse-title flex justify-between rounded-xl bg-gradient-to-b from-transparent to-neutral-200 text-lg font-bold peer-checked:bg-gradient-to-t">
+      <div className="collapse-title flex justify-between rounded-xl bg-gradient-to-b from-transparent to-primary text-lg font-bold text-neutral peer-checked:bg-gradient-to-t">
         <span>
           {user.username} {user.type}
         </span>

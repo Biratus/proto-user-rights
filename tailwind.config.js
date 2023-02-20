@@ -26,6 +26,33 @@ module.exports = {
   plugins: [require("daisyui")],
   darkMode: ["class", '[data-theme="dark"]'],
   daisyui: {
-    themes: ["light", "dark"],
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+          primary: "#233755",
+          secondary: "#395D75",
+          accent: "#ccb76b",
+          // neutral: "#181830",
+          info: "#3aa9ce",
+          success: "#69c352",
+          warning: "#c2592d",
+          error: "#b33452",
+        },
+      },
+      {
+        dark: {
+          ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
+          primary: "#4F5F77",
+          secondary: "#063449",
+          accent: "#ccb76b",
+          // neutral: "#181830",
+          info: "#007a9d",
+          success: "#349222",
+          warning: "#8c2b01",
+          error: "#7e002a",
+        },
+      },
+    ],
   },
 };

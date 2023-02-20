@@ -1,3 +1,4 @@
+import ThemeInitializer from "@/components/theme/ThemeInitiliazer";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import AppBar from "./AppBar";
@@ -20,6 +21,7 @@ export default async function RootLayout({
       */}
       <head />
       <body>
+        <ThemeInitializer />
         {session && <AppBar />}
         <AuthContext session={session}>
           <div className="drawer">
