@@ -1,7 +1,10 @@
 import CenterWrapper from "@/components/CenterWrapper";
 import AuthRepository from "@/lib/db/repository/AuthRepository";
 import UserRepository from "@/lib/db/repository/UserRepository";
-import UserRightManagement from "./UserRightManagement";
+import UserManagementForm from "./UserManagementForm";
+import UserManagementInitializer from "./UserManagementInitializer";
+import { setUserManagementProps } from "./userManagementStore";
+import UserManagementTable from "./UserManagementTable";
 
 export default async function UtilisateursPage() {
   const [users, droits, roles] = await Promise.all([
@@ -9,28 +12,13 @@ export default async function UtilisateursPage() {
     AuthRepository.getAllDroits(),
     AuthRepository.getAllRoles(),
   ]);
+  setUserManagementProps({ users, droits, roles });
+
   return (
-    <CenterWrapper style={{ className: "mt-2" }}>
-      <table className="table-zebra table w-4/5">
-        <thead>
-          <tr>
-            <th>Identifiant</th>
-            <th>Type</th>
-            <th>Roles</th>
-            <th>Droits</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <UserRightManagement
-              key={user.id}
-              user={user}
-              droits={droits}
-              roles={roles}
-            />
-          ))}
-        </tbody>
-      </table>
+    <CenterWrapper style={{ className: "h-full mt-2 gap-1" }}>
+      <UserManagementInitializer users={users} droits={droits} roles={roles} />
+      <UserManagementForm />
+      <UserManagementTable users={users} droits={droits} roles={roles} />
     </CenterWrapper>
   );
 }

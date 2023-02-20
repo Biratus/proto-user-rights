@@ -24,13 +24,13 @@ export default async function RootLayout({
         <ThemeInitializer />
         {session && <AppBar />}
         <AuthContext session={session}>
-          <div className="drawer">
+          <div className="drawer fixed">
             <input
               id={GlobalDrawerId}
               type="checkbox"
               className="drawer-toggle"
             />
-            <div className="drawer-content">{children}</div>
+            <div className="drawer-content overflow-y-hidden">{children}</div>
             <MenuDrawer />
           </div>
         </AuthContext>
