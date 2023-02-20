@@ -16,6 +16,11 @@ module.exports = {
         dark: "#8E804A", //"#99873e",
         light: "#D6C588", //"#ffe99a",
       },
+      ajcBlue: {
+        DEFAULT: "#233755",
+        dark: "#18263B",
+        light: "#4F5F77",
+      },
     },
   },
   plugins: [require("daisyui")],

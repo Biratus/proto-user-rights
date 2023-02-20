@@ -1,15 +1,17 @@
-"use client";
-
-import { SessionProvider } from "next-auth/react";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 import AppBar from "./AppBar";
+import AuthContext from "./AuthContext";
 import "./globals.css";
 import MenuDrawer, { GlobalDrawerId } from "./MenuDrawer";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions);
+
   return (
     <html lang="en" data-theme="light">
       {/*
@@ -18,8 +20,8 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <SessionProvider>
-          <AppBar />
+        {session && <AppBar />}
+        <AuthContext session={session}>
           <div className="drawer">
             <input
               id={GlobalDrawerId}
@@ -29,7 +31,7 @@ export default function RootLayout({
             <div className="drawer-content">{children}</div>
             <MenuDrawer />
           </div>
-        </SessionProvider>
+        </AuthContext>
       </body>
     </html>
   );

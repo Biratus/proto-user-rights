@@ -16,8 +16,8 @@ export default function LoginForm({ callbackUrl }: { callbackUrl?: string }) {
     };
     const res = await signIn("credentials", {
       ...credentials,
-      redirect: callbackUrl ? true : false,
-      callbackUrl,
+      redirect: true,
+      callbackUrl: callbackUrl || "/",
     });
   };
 

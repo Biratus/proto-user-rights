@@ -1,24 +1,17 @@
-"use client";
-
-import { signOut, useSession } from "next-auth/react";
+import { LogoutButton, LogoutLink } from "@/components/Logouts";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback } from "react";
-import { Bell, Home, LogOut, Menu, Moon, Send, Sun, User } from "react-feather";
+import { Bell, Home, Menu, Moon, Send, Sun, User } from "react-feather";
 import unknownUser from "../../public/unknown_user.png";
 import { GlobalDrawerId } from "./MenuDrawer";
 
 export default function AppBar() {
-  const { data: session, status } = useSession();
-  const logout = useCallback(() => signOut({ callbackUrl: "/" }), []);
-
-  if (status == "unauthenticated" || status === "loading") return null;
   return (
     <div className="navbar bg-ajcYellow-light">
       <div className="navbar-start">
         <label
           htmlFor={GlobalDrawerId}
-          className="drawer-button btn-ghost btn-square btn"
+          className="btn-ghost drawer-button btn-square btn"
         >
           <Menu />
         </label>
@@ -38,9 +31,7 @@ export default function AppBar() {
         <Notification />
         <AvatarMenu />
         <SwitchTheme />
-        <button className="btn-ghost btn-circle btn" onClick={logout}>
-          <LogOut />
-        </button>
+        <LogoutButton />
       </div>
     </div>
   );
@@ -109,9 +100,7 @@ function AvatarMenu() {
           </Link>
         </li>
         <li>
-          <a>
-            <LogOut /> Logout
-          </a>
+          <LogoutLink />
         </li>
       </ul>
     </div>

@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import { Utilisateur } from "./db/repository/UserRepository";
+import bcrypt from "bcryptjs";
+import UserRepository from "./db/repository/UserRepository";
 
 export async function randomPassword() {
   const pwd = generateRandomPassword();
@@ -25,8 +25,25 @@ export async function hashPassword(pwd: string) {
   return bcrypt.hash(pwd, 10);
 }
 
-export async function userMatch(input: Utilisateur, userDB: Utilisateur) {
+export async function userMatch(
+  input: { username: string; password: string },
+  userDB: { username?: string; password?: string }
+) {
   if (input.username !== userDB.username) return false;
 
   return await bcrypt.compare(input.password!, userDB.password!);
+}
+
+export async function authenticate(
+  credentials:
+    | {
+        username: string;
+        password: string;
+      }
+    | undefined
+) {
+  if (!credentials) return null;
+  const user = await UserRepository.byUsername(credentials.username);
+  console.log("auth", user);
+  return user !== null && (await userMatch(credentials, user)) ? user : null;
 }

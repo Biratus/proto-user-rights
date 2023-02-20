@@ -1,9 +1,8 @@
-import { userMatch } from "@/lib/auth";
-import UserRepository from "@/lib/db/repository/UserRepository";
-import NextAuth from "next-auth";
+import { authenticate } from "@/lib/auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/providers/overview
   providers: [
     CredentialsProvider({
@@ -28,12 +27,9 @@ export const authOptions = {
         // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
-        // TODO prisma
         try {
           // If no error and we have user data, return it
-          const user = await UserRepository.byUsername(credentials.username);
-          console.log("auth", user);
-          return user && userMatch(credentials, user) ? user : null;
+          return authenticate(credentials);
         } catch (e) {
           console.log(e);
           // Return null if user data could not be retrieved
@@ -42,21 +38,21 @@ export const authOptions = {
       },
     }),
   ],
-  session: {
-    // Choose how you want to save the user session.
-    // The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.
-    // If you use an `adapter` however, we default it to `"database"` instead.
-    // You can still force a JWT session by explicitly defining `"jwt"`.
-    // When using `"database"`, the session cookie will only contain a `sessionToken` value,
-    // which is used to look up the session in the database.
-    strategy: "jwt",
+  // session: {
+  //   // Choose how you want to save the user session.
+  //   // The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.
+  //   // If you use an `adapter` however, we default it to `"database"` instead.
+  //   // You can still force a JWT session by explicitly defining `"jwt"`.
+  //   // When using `"database"`, the session cookie will only contain a `sessionToken` value,
+  //   // which is used to look up the session in the database.
+  //   strategy: "jwt",
 
-    // Seconds - How long until an idle session expires and is no longer valid.
-    maxAge: 30 * 24 * 60 * 60, // 30 days
-  },
+  //   // Seconds - How long until an idle session expires and is no longer valid.
+  //   maxAge: 30 * 24 * 60 * 60, // 30 days
+  // },
   pages: {
     signIn: "/",
-    signout: "/",
+    signOut: "/",
     error: "/",
   },
   callbacks: {
