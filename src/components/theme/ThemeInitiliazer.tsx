@@ -7,6 +7,20 @@ export default function ThemeInitializer() {
     [...document.querySelectorAll("[data-toggle-theme]")].forEach((el) => {
       el.addEventListener("click", toggleTheme);
     });
+    var toggleEl = document.querySelector("[data-toggle-theme]");
+    if (typeof window !== "undefined") {
+      (function (theme = localStorage.getItem("theme")) {
+        if (theme) {
+          console.log("we got a theme", theme);
+          document.documentElement.setAttribute("data-theme", theme);
+          // if (toggleEl) {
+          //   [...document.querySelectorAll("[data-toggle-theme]")].forEach((el) => {
+          //     el.classList.add(toggleEl.getAttribute('data-act-class'))
+          //   });
+          // }
+        }
+      })();
+    }
 
     return () =>
       [...document.querySelectorAll("[data-toggle-theme]")].forEach((el) =>
