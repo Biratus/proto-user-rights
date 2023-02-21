@@ -1,5 +1,6 @@
 import CenterWrapper from "@/components/CenterWrapper";
 import { UtilisateurWithRights } from "@/lib/db/repository/UserRepository";
+import BackgroundImage from "../BackgroundImage";
 import StagiaireHomePage from "./StagiaireHomePage";
 
 export default function UserHomePage({
@@ -10,14 +11,13 @@ export default function UserHomePage({
   if (user.type == "STAGIAIRE")
     return (
       <CenterWrapper className="homepage">
-        {/* <div className="absolute -z-10 h-screen w-screen">
-          <Image alt="Image de fond" src={bgImage} quality={100} fill={true} />
-        </div> */}
+        <BackgroundImage />
         <StagiaireHomePage />
       </CenterWrapper>
     );
   return (
     <CenterWrapper>
+      <BackgroundImage />
       <div className="mt-4 text-2xl font-bold">
         Page d&apos;accueil de{" "}
         <span className="underline">{user.username}</span>
