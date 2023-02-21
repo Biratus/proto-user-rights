@@ -38,11 +38,11 @@ export default function UserManagementForm() {
   );
 
   return (
-    <div className="inner-shadow flex h-fit grow flex-col gap-3 rounded-lg border border-base-200 p-2">
+    <div className="flex h-fit grow flex-col gap-3 rounded-lg border border-base-200 p-2 shadow-inner">
       <div className="flex items-center justify-between">
         <span className="text-lg font-bold">Recherche</span>
         <button
-          className={`btn-primary btn-outline btn-square btn-sm btn ${
+          className={`btn-outline btn btn-primary btn-square btn-sm ${
             noFilter ? "invisible" : "visible"
           }`}
           onClick={resetFilter}

@@ -24,7 +24,7 @@ module.exports = {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
   darkMode: ["class", '[data-theme="dark"]'],
   daisyui: {
     themes: [
@@ -45,7 +45,7 @@ module.exports = {
       {
         dark: {
           ...require("daisyui/src/colors/themes")["[data-theme=dark]"],
-          primary: "#4F5F77",
+          primary: "#18263B",
           secondary: "#063449",
           accent: "#ccb76b",
           // neutral: "#181830",

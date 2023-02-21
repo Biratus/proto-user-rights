@@ -1,14 +1,15 @@
-import { Style } from "@/lib/types";
+import { StyleProps } from "@/lib/types";
 import { PropsWithChildren } from "react";
 
 export default function CenterWrapper({
-  style = { className: "" },
+  className = "",
+  style = {},
   children,
-}: { style?: Style } & PropsWithChildren) {
+}: StyleProps & PropsWithChildren) {
   return (
     <div
-      className={`flex w-full justify-center ${style.className}`}
-      style={{ ...style.props }}
+      className={`flex w-full justify-center ${className}`}
+      style={{ ...style }}
     >
       {children}
     </div>

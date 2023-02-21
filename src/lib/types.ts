@@ -32,3 +32,15 @@ export interface Interval {
   start: Date;
   end: Date;
 }
+
+export interface Filiere {
+  start: Date;
+  end: Date;
+  formateur: Formateur;
+  nom: string;
+}
+
+export interface StyleProps {
+  className?: string;
+  style?: any;
+}

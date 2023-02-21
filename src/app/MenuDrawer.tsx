@@ -60,8 +60,8 @@ function SubMenu({ menu }: { menu: Menu }) {
       <li className="menu-title">
         <span>{menu.label}</span>
       </li>
-      {menu.links.map((link) => (
-        <LinkItem link={link} />
+      {menu.links.map((link, index) => (
+        <LinkItem link={link} key={index} />
       ))}
     </>
   );

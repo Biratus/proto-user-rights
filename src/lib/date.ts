@@ -81,9 +81,7 @@ export function startOfWeek(d: Date) {
 */
 
 export function nbOfDaysBetween(start: Date, end: Date) {
-  return dateFns.isSameMonth(start, end)
-    ? end.getDate() - start.getDate() + 1
-    : dateFns.eachDayOfInterval({ start, end }).length;
+  return dateFns.differenceInCalendarDays(end, start);
 }
 
 export function mapISO<OUT>(list: any[], fields: string[]): Array<OUT> {

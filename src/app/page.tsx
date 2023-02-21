@@ -1,7 +1,7 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import UserHomePage from "./(homepages)/UserHomePage";
 import LoginPage from "./LoginPage";
-import UserHomePage from "./UserHomePage";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -9,7 +9,7 @@ export default async function Home() {
 }
 
 /*
-admin: Ld4TESr1
-formateur: B#_uLyB!
-stagiaire: yRIIbaeb
+admin: admin
+formateur: formateur
+stagiaire: stagiaire
 */
