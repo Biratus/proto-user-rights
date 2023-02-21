@@ -57,7 +57,7 @@ class UserRepository {
     return await prisma.utilisateurs.update({
       where: { id: user.id },
       data: {
-        ...user,
+        password: user.password!,
       },
     });
   }

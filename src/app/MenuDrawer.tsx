@@ -39,6 +39,7 @@ const userMenu: { [key: string]: Menu[] } = {
       links: [UTILISATEURS_ITEM],
     },
   ],
+  FORMATEUR: [],
 };
 
 export default function MenuDrawer({ user }: { user: UtilisateurWithRights }) {

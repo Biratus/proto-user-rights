@@ -16,6 +16,7 @@ export default async function handler(
       await UserRepository.update(user);
       return ok(res, {});
     } catch (e) {
+      console.error(e);
       return serverError(res, "CHANGEMENT DE MOT DE PASSE");
     }
   } else return notMapped(res);

@@ -3,6 +3,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import AppBar from "./AppBar";
 import AuthContext from "./AuthContext";
+import BackgroundImage from "./BackgroundImage";
 import "./globals.css";
 import MenuDrawer, { GlobalDrawerId } from "./MenuDrawer";
 
@@ -23,6 +24,7 @@ export default async function RootLayout({
       <body>
         <ThemeInitializer />
         {session && <AppBar />}
+        {session && <BackgroundImage />}
         <AuthContext session={session}>
           <div className="drawer fixed">
             <input

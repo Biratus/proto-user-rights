@@ -20,6 +20,9 @@ export default function LoginPage() {
     (createdUser: Utilisateur) => setHasRegistered(createdUser),
     []
   );
+
+  const errorCause = searchParams.get("error");
+  const callbackUrl = searchParams.get("callbackUrl");
   return (
     <div className="flex h-screen w-screen flex-row">
       <div className="flex w-1/2 items-center justify-center bg-base-300 p-5">
@@ -31,8 +34,11 @@ export default function LoginPage() {
         <div className="absolute top-0 w-1/2 bg-secondary p-6 text-center">
           Bienvenue sur le nouvel outil de gestion d&apos;AJC
         </div>
-        {searchParams.get("callbackUrl") && (
+        {!errorCause && callbackUrl && (
           <AlertError message="Vous devez vous connecter pour accéder à cette page" />
+        )}
+        {errorCause == "CredentialsSignin" && callbackUrl && (
+          <AlertError message="Vos informations de connexion ne sont pas reconnues" />
         )}
         {loginOrRegister && (
           <div>
