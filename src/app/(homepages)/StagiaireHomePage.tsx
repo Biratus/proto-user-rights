@@ -124,9 +124,13 @@ function EvalModulesPanel({ modules }: { modules: Module[] }) {
                   </strong>
                 </div>
               </div>
-              <div className="flex w-full shrink-0 items-center justify-center bg-primary font-sans text-lg tracking-wide text-primary-content transition-all duration-300 group-hover:-translate-x-full">
+              <Link
+                prefetch={false}
+                href={`/modules/${mod.id}`}
+                className="flex w-full shrink-0 items-center justify-center bg-primary font-sans text-lg tracking-wide text-primary-content no-underline transition-all duration-300 group-hover:-translate-x-full"
+              >
                 Evaluer
-              </div>
+              </Link>
             </div>
           </li>
         ))}

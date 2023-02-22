@@ -4,7 +4,7 @@ import bgImageLight from "../../public/homepage_bg_light.jpg";
 
 export default function BackgroundImage() {
   return (
-    <div className="absolute -z-10 h-screen w-screen">
+    <div className="fixed top-0 -z-10 h-screen w-screen">
       <Image
         alt="Image de fond"
         src={bgImageLight}

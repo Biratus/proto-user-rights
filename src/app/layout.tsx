@@ -26,7 +26,7 @@ export default async function RootLayout({
         {session && <AppBar />}
         {session && <BackgroundImage />}
         <AuthContext session={session}>
-          <div className="drawer fixed">
+          <div className="drawer h-auto">
             <input
               id={GlobalDrawerId}
               type="checkbox"

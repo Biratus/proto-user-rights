@@ -10,7 +10,30 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        "scale-up-to-normal": {
+          "0%": { transform: "scale(5)" },
+          "100%": { transform: "scale(1)" },
+        },
+        "wiggle-submit": {
+          "0%": {
+            transform: "rotate(-3deg)",
+            "background-color": "hsl(var(--er))",
+          },
+          "50%": { transform: "rotate(3deg)" },
+          "100%": {
+            transform: "rotate(-3deg)",
+            "background-color": "hsl(var(--su))",
+          },
+        },
+      },
+      animation: {
+        "scale-up-to-normal":
+          "scale-up-to-normal 500ms cubic-bezier(0.075, 0.82, 0.165, 1)",
+        "wiggle-submit": "wiggle-submit 100ms ease-in-out 5 alternate-reverse",
+      },
+    },
     colors: {
       ajcYellow: {
         DEFAULT: "#ccb76b",
