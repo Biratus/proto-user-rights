@@ -10,14 +10,14 @@ export default function BackgroundImage() {
         src={bgImageLight}
         quality={100}
         fill={true}
-        className="dark:hidden"
+        className="object-cover dark:hidden"
       />
       <Image
         alt="Image de fond"
         src={bgImageDark}
         quality={100}
         fill={true}
-        className="hidden dark:block"
+        className="hidden object-cover dark:block"
       />
     </div>
   );

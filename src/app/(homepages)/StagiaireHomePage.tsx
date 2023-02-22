@@ -91,7 +91,7 @@ export default function StagiaireHomePage({}) {
         <Link
           prefetch={false}
           href="/planning"
-          className="btn-outline btn btn-accent btn-lg"
+          className="btn-outline btn btn-accent btn-lg flex items-center gap-3"
         >
           Planning <Calendar />
         </Link>
@@ -168,16 +168,16 @@ function ModulePanel({ module }: { module: Module }) {
         <Link
           prefetch={false}
           href="/"
-          className="btn btn-primary justify-between py-3"
+          className="btn-disabled btn btn-primary justify-between py-3"
         >
-          Après-midi <PenTool />
+          Matin <PenTool />
         </Link>
         <Link
           prefetch={false}
           href="/"
           className="btn btn-primary justify-between py-3"
         >
-          Matin <PenTool />
+          Après-midi <PenTool />
         </Link>
       </div>
     </PanelWrapper>
