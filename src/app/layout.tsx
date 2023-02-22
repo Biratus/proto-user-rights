@@ -23,19 +23,19 @@ export default async function RootLayout({
       <head />
       <body>
         <ThemeInitializer />
-        {session && <AppBar />}
-        {session && <BackgroundImage />}
-        <AuthContext session={session}>
-          <div className="drawer h-auto">
-            <input
-              id={GlobalDrawerId}
-              type="checkbox"
-              className="drawer-toggle"
-            />
-            <div className="drawer-content overflow-y-hidden">{children}</div>
-            {session && <MenuDrawer user={session.user} />}
+        <div className="drawer">
+          <input
+            id={GlobalDrawerId}
+            type="checkbox"
+            className="drawer-toggle"
+          />
+          <div className="drawer-content overflow-y-hidden">
+            {session && <AppBar />}
+            {session && <BackgroundImage />}
+            <AuthContext session={session}>{children}</AuthContext>
           </div>
-        </AuthContext>
+          {session && <MenuDrawer user={session.user} />}
+        </div>
       </body>
     </html>
   );
