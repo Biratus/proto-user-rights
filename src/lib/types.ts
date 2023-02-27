@@ -2,6 +2,11 @@ export interface Formateur {
   mail: string;
   nom: string;
   prenom: string;
+  TJM: number;
+  satisfaction: number;
+  skills: string[];
+  interne: boolean;
+  blacklist: boolean;
 }
 
 export interface RawModule {
@@ -11,7 +16,7 @@ export interface RawModule {
   end: string;
   theme: string;
   filiere: string;
-  formateur: Formateur;
+  formateur: string;
 }
 export interface Module {
   id: string;

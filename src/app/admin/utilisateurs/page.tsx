@@ -15,10 +15,10 @@ export default async function UtilisateursPage() {
   setUserManagementProps({ users, droits, roles });
 
   return (
-    <CenterWrapper className="mt-2 h-full gap-1">
+    <CenterWrapper className="mt-2 flex-col gap-1">
       <UserManagementInitializer users={users} droits={droits} roles={roles} />
       <UserManagementForm />
-      <UserManagementTable users={users} droits={droits} roles={roles} />
+      <UserManagementTable droits={droits} roles={roles} />
     </CenterWrapper>
   );
 }

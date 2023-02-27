@@ -29,7 +29,7 @@ export default async function RootLayout({
             type="checkbox"
             className="drawer-toggle"
           />
-          <div className="drawer-content overflow-y-hidden">
+          <div className="drawer-content">
             {session && <AppBar />}
             {session && <BackgroundImage />}
             <AuthContext session={session}>{children}</AuthContext>

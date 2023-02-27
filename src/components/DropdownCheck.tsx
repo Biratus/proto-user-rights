@@ -42,7 +42,7 @@ export default function DropdownCheck<T>({
       </label>
       <div
         tabIndex={0}
-        className="dropdown-content rounded-box flex flex-col gap-4 bg-base-300 p-2 shadow"
+        className="dropdown-content rounded-box z-20 flex flex-col gap-4 bg-base-300 p-2 shadow"
       >
         <div className="flex max-h-64 w-max snap-y flex-col gap-2 overflow-y-scroll p-2">
           {updatingItems.map(({ label, value, selected }, i) => (

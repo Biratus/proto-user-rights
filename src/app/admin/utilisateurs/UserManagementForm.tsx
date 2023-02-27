@@ -42,7 +42,7 @@ export default function UserManagementForm() {
       <div className="flex items-center justify-between">
         <span className="text-lg font-bold">Recherche</span>
         <button
-          className={`btn-outline btn btn-primary btn-square btn-sm ${
+          className={`btn-outline btn-primary btn-square btn-sm btn ${
             noFilter ? "invisible" : "visible"
           }`}
           onClick={resetFilter}

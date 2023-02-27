@@ -1,15 +1,12 @@
 "use client";
 
-import { UtilisateurWithRights } from "@/lib/db/repository/UserRepository";
 import { useFilteredUsers } from "./userManagementStore";
 import UserRightManagement from "./UserRightManagement";
 
 export default function UserManagementTable({
-  users,
   droits,
   roles,
 }: {
-  users: UtilisateurWithRights[];
   droits: string[];
   roles: string[];
 }) {
