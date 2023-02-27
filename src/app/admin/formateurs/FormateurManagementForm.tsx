@@ -1,5 +1,6 @@
 "use client";
 
+import BooleanSelect from "@/components/BooleanSelect";
 import DoubleRangeInput from "@/components/DoubleRangeInput";
 import DropdownCheck from "@/components/DropdownCheck";
 import { allComp } from "@/lib/realData";
@@ -41,21 +42,12 @@ export default function FormateurManagementForm() {
   );
 
   const changeIntExt = useCallback(
-    (evt: ChangeEvent<HTMLSelectElement>) =>
-      setFilter({ interne: evt.target.value == "interne" }),
+    (interne?: boolean) => setFilter({ interne }),
     [setFilter]
   );
-
-  const resetIntExt = useCallback(() => setFilter({ interne: undefined }), []);
 
   const changeBlacklist = useCallback(
-    (evt: ChangeEvent<HTMLSelectElement>) =>
-      setFilter({ blacklist: evt.target.value == "blacklist" }),
-    [setFilter]
-  );
-
-  const resetBlacklist = useCallback(
-    () => setFilter({ blacklist: undefined }),
+    (blacklist?: boolean) => setFilter({ blacklist }),
     [setFilter]
   );
 
@@ -101,65 +93,23 @@ export default function FormateurManagementForm() {
             </div>
           </div>
           <div className="divider divider-horizontal"></div>
-          <div className="form-control w-auto">
-            <label className="label justify-end">
-              <button
-                className={`btn-xs btn ${
-                  filter.interne === undefined ? "btn-disabled" : ""
-                }`}
-                onClick={resetIntExt}
-              >
-                tous
-              </button>
-            </label>
-            <select
-              className="select-bordered select"
-              onChange={changeIntExt}
-              value={
-                filter.interne === undefined
-                  ? ""
-                  : filter.interne
-                  ? "interne"
-                  : "externe"
-              }
-            >
-              <option disabled value={""}>
-                Interne/Externe
-              </option>
-              <option value="interne">Interne</option>
-              <option value="externe">Externe</option>
-            </select>
-          </div>
+          <BooleanSelect
+            className="w-auto"
+            label="Interne/Externe"
+            value={filter.blacklist}
+            values={["Interne", "Externe"]}
+            onChange={changeIntExt}
+            onReset={changeIntExt}
+          />
           <div className="divider divider-horizontal"></div>
-          <div className="form-control w-auto">
-            <label className="label justify-end">
-              <button
-                className={`btn-xs btn ${
-                  filter.blacklist === undefined ? "btn-disabled" : ""
-                }`}
-                onClick={resetBlacklist}
-              >
-                tous
-              </button>
-            </label>
-            <select
-              className="select-bordered select"
-              onChange={changeBlacklist}
-              value={
-                filter.blacklist === undefined
-                  ? ""
-                  : filter.blacklist
-                  ? "blacklist"
-                  : "notblacklist"
-              }
-            >
-              <option disabled value={""}>
-                Blacklisté?
-              </option>
-              <option value="blacklist">Blacklisté</option>
-              <option value="notblacklist">Non blacklisté</option>
-            </select>
-          </div>
+          <BooleanSelect
+            className="w-auto"
+            label="Blacklisté ?"
+            value={filter.blacklist}
+            values={["Blacklisté", "Non blacklisté"]}
+            onChange={changeBlacklist}
+            onReset={changeBlacklist}
+          />
         </div>
       </SearchPart>
       <div className="flex flex-row space-x-5">

@@ -104,7 +104,6 @@ function formateurMatch(
   let blacklistMatch =
     filter.blacklist === undefined || blacklist === filter.blacklist;
   let sk = skillMatch(filter.skills, skills);
-  console.log({ mail, skills, sk });
   return (
     infosMatch &&
     tjmMatch &&
