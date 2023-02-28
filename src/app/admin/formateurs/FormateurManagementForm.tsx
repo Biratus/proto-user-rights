@@ -109,13 +109,13 @@ export default function FormateurManagementForm() {
       </SearchPart>
       <div className="flex flex-row space-x-5">
         <div className="w-1/3">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>TJM</span>
             <button
-              className={`btn-outline btn-primary btn-square btn-sm btn`}
+              className={`btn-outline btn-primary btn-xs btn`}
               onClick={resetTJM}
             >
-              <Trash size={16} />
+              max
             </button>
           </div>
           <DoubleRangeInput
@@ -127,14 +127,15 @@ export default function FormateurManagementForm() {
             value={filter.TJM}
           />
         </div>
+        <div className="divider divider-vertical"></div>
         <div className="w-1/3">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>% Satisfaction</span>
             <button
-              className={`btn-outline btn-primary btn-square btn-sm btn`}
+              className={`btn-outline btn-primary btn-xs btn`}
               onClick={resetSatisfaction}
             >
-              <Trash size={16} />
+              max
             </button>
           </div>
           <DoubleRangeInput
