@@ -12,11 +12,11 @@ export default async function UtilisateursPage() {
     AuthRepository.getAllDroits(),
     AuthRepository.getAllRoles(),
   ]);
-  setUserManagementProps({ users, droits, roles });
+  setUserManagementProps({ users });
 
   return (
     <CenterWrapper className="mt-2 flex-col gap-1">
-      <UserManagementInitializer users={users} droits={droits} roles={roles} />
+      <UserManagementInitializer users={users} />
       <UserManagementForm />
       <UserManagementTable droits={droits} roles={roles} />
     </CenterWrapper>

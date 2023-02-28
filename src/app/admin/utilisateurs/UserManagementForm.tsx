@@ -1,7 +1,7 @@
 "use client";
 
 import { upperFirst } from "@/lib/strings";
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { Trash, X } from "react-feather";
 import { useUserManagementFilter } from "./userManagementStore";
 
@@ -11,8 +11,7 @@ const userType = ["ADMIN", "FORMATEUR", "STAGIAIRE"].map((e) => ({
 }));
 
 export default function UserManagementForm() {
-  const { filter, setFilter, resetFilter } = useUserManagementFilter();
-
+  const { filter, setFilter, resetFilter, isEmpty } = useUserManagementFilter();
   const setUsername = useCallback(
     (evt: ChangeEvent<HTMLInputElement>) =>
       setFilter({ username: evt.target.value }),
@@ -32,18 +31,13 @@ export default function UserManagementForm() {
     () => setFilter({ userType: "" }),
     [setFilter]
   );
-  const noFilter = useMemo(
-    () => filter.username == "" && filter.userType == "",
-    [filter]
-  );
-
   return (
-    <div className="flex h-fit grow flex-col gap-3 rounded-lg border border-base-200 p-2 shadow-inner">
-      <div className="flex items-center justify-between">
+    <div className="glass flex h-fit grow flex-col gap-3 rounded-lg border border-base-200 p-2 shadow-inner">
+      <div className="flex items-center gap-3">
         <span className="text-lg font-bold">Recherche</span>
         <button
           className={`btn-outline btn-primary btn-square btn-sm btn ${
-            noFilter ? "invisible" : "visible"
+            isEmpty() ? "invisible" : "visible"
           }`}
           onClick={resetFilter}
         >

@@ -1,14 +1,13 @@
 import { allComp, formateurs } from "@/lib/realData";
-import { strMatchList } from "@/lib/strings";
+import { Matcher, MatcherFactory } from "@/lib/searchFormsStore/Matcher";
+import {
+  createSearchStore,
+  useSearchStoreFilter,
+} from "@/lib/searchFormsStore/SearchFormStore";
 import { Formateur } from "@/lib/types";
-import { create } from "zustand";
 
 export type FormateurManagementStoreProps = {
   formateurs: Formateur[];
-};
-
-const initialProps: FormateurManagementStoreProps = {
-  formateurs: Array.from(formateurs.values()),
 };
 
 type FormateurManagementFilter = {
@@ -20,12 +19,7 @@ type FormateurManagementFilter = {
   blacklist?: boolean;
 };
 
-type FormateurManagementStore = FormateurManagementStoreProps & {
-  filter: FormateurManagementFilter;
-  filteredFormateurs: Formateur[];
-};
-
-const initialFilter = {
+const initialFilter: FormateurManagementFilter = {
   infos: "",
   TJM: [0, 999],
   satisfaction: [0, 100],
@@ -33,98 +27,36 @@ const initialFilter = {
   blacklist: false,
 };
 
-const formateurManagementStore = create<FormateurManagementStore>(
-  (set, get) => ({
-    ...initialProps,
-    filter: initialFilter,
-    filteredFormateurs: [
-      ...initialProps.formateurs.filter((formateur) =>
-        formateurMatch(formateur, initialFilter)
-      ),
-    ],
-  })
+const formateurMatcher: Matcher<Formateur, FormateurManagementFilter> = {
+  infos: ({ nom, prenom, mail }: Formateur, filterInfos: string) =>
+    MatcherFactory.strings(filterInfos, [nom, prenom, mail]),
+  TJM: ({ TJM }: Formateur, filterTJM: number[]) =>
+    MatcherFactory.range(filterTJM, TJM),
+  satisfaction: ({ satisfaction }: Formateur, filterSatisfaction: number[]) =>
+    MatcherFactory.range(filterSatisfaction, satisfaction),
+  skills: ({ skills }: Formateur, filterSkills: string[]) =>
+    MatcherFactory.stringLists(filterSkills, skills, allComp.length),
+  blacklist: ({ blacklist }: Formateur, filterBlacklist: boolean | undefined) =>
+    MatcherFactory.boolean(filterBlacklist, blacklist),
+  interne: ({ interne }: Formateur, filterInterne: boolean | undefined) =>
+    MatcherFactory.boolean(filterInterne, interne),
+};
+
+const formateurManagementStore = createSearchStore(
+  Array.from(formateurs.values()),
+  initialFilter,
+  formateurMatcher
 );
 
 export const setFormateurManagementProps = (
   props: FormateurManagementStoreProps
-) =>
-  formateurManagementStore.setState({
-    ...props,
-    filteredFormateurs: [
-      ...props.formateurs.filter((formateur) =>
-        formateurMatch(formateur, initialFilter)
-      ),
-    ],
-  });
+) => formateurManagementStore.getState().setData(props.formateurs);
 
 export const useFilteredFormateurs = () =>
-  formateurManagementStore((state) => state.filteredFormateurs);
+  formateurManagementStore((state) => state.filteredData);
+
 export const getFormateurManagementFilter = () =>
   formateurManagementStore((state) => state.filter);
 
-export const useFormateurManagementFilter = () => ({
-  filter: getFormateurManagementFilter(),
-  setFilter: (filter: Partial<FormateurManagementFilter>) =>
-    formateurManagementStore.setState((state) => ({
-      filter: { ...state.filter, ...filter },
-      filteredFormateurs: state.formateurs.filter((formateur) =>
-        formateurMatch(formateur, { ...state.filter, ...filter })
-      ),
-    })),
-  resetFilter: () =>
-    formateurManagementStore.setState((state) => ({
-      filter: initialFilter,
-      filteredFormateurs: state.formateurs.filter((formateur) =>
-        formateurMatch(formateur, initialFilter)
-      ),
-    })),
-  isEmpty: () => formateurManagementStore.getState().filter == initialFilter,
-});
-
-function formateurMatch(
-  {
-    nom,
-    prenom,
-    mail,
-    TJM,
-    satisfaction,
-    skills,
-    interne,
-    blacklist,
-  }: Formateur,
-  filter: FormateurManagementFilter
-) {
-  let infosMatch = strMatchList(filter.infos, [nom, prenom, mail]);
-
-  let tjmMatch = TJM >= filter.TJM[0] && TJM <= filter.TJM[1];
-  let satisfactionMatch =
-    satisfaction >= filter.satisfaction[0] &&
-    satisfaction <= filter.satisfaction[1];
-
-  let intExtMatch = filter.interne === undefined || interne === filter.interne;
-
-  let blacklistMatch =
-    filter.blacklist === undefined || blacklist === filter.blacklist;
-  let sk = skillMatch(filter.skills, skills);
-  return (
-    infosMatch &&
-    tjmMatch &&
-    satisfactionMatch &&
-    intExtMatch &&
-    blacklistMatch &&
-    sk
-  );
-}
-
-function skillMatch(search: string[], against: string[]) {
-  // Tous
-  if (search.length == allComp.length) return true;
-
-  // Aucun
-  if (search.length == 0) return against.length == 0;
-
-  // Some
-  if (search.every((elt) => against.includes(elt))) return true;
-
-  return false;
-}
+export const useFormateurManagementFilter = () =>
+  useSearchStoreFilter<FormateurManagementFilter>(formateurManagementStore);
