@@ -5,7 +5,6 @@ import { useFilteredFormateurs } from "./formateurManagementStore";
 
 export default function FormateurManagementTable() {
   const formateurs = useFilteredFormateurs();
-  console.log({ formateurs });
   return (
     <table className="table-zebra -z-10 m-1 table w-full">
       <thead>

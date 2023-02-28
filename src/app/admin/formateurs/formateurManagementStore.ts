@@ -74,7 +74,9 @@ export const useFormateurManagementFilter = () => ({
   resetFilter: () =>
     formateurManagementStore.setState((state) => ({
       filter: initialFilter,
-      filteredFormateurs: state.formateurs,
+      filteredFormateurs: state.formateurs.filter((formateur) =>
+        formateurMatch(formateur, initialFilter)
+      ),
     })),
   isEmpty: () => formateurManagementStore.getState().filter == initialFilter,
 });

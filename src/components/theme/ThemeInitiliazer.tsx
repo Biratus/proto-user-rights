@@ -10,7 +10,6 @@ export default function ThemeInitializer() {
     if (typeof window !== "undefined") {
       (function (theme = localStorage.getItem("theme")) {
         if (theme) {
-          console.log("we got a theme", theme);
           document.documentElement.setAttribute("data-theme", theme);
           const toggleElt = document.querySelector("[data-toggle-theme]");
           if (toggleElt) {

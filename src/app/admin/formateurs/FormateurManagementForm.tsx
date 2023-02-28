@@ -2,7 +2,7 @@
 
 import BooleanSelect from "@/components/BooleanSelect";
 import DoubleRangeInput from "@/components/DoubleRangeInput";
-import DropdownCheck from "@/components/DropdownCheck";
+import DropdownSelect from "@/components/DropdownSelect";
 import { allComp } from "@/lib/realData";
 import { ChangeEvent, PropsWithChildren, useCallback } from "react";
 import { Trash, X } from "react-feather";
@@ -51,11 +51,6 @@ export default function FormateurManagementForm() {
     [setFilter]
   );
 
-  const noSkills = useCallback(() => setFilter({ skills: [] }), [setFilter]);
-  const allSkills = useCallback(
-    () => setFilter({ skills: allComp }),
-    [setFilter]
-  );
   const changeSkills = useCallback(
     (comps: string[]) => setFilter({ skills: comps }),
     [setFilter]
@@ -68,7 +63,7 @@ export default function FormateurManagementForm() {
           Recherche ({formateurs.length} Formateurs)
         </span>
         <button
-          className={`btn-outline btn-primary btn-sm btn-square btn ${
+          className={`btn-outline btn-primary btn-square btn-sm btn ${
             isEmpty() ? "invisible" : "visible"
           }`}
           onClick={resetFilter}
@@ -96,7 +91,7 @@ export default function FormateurManagementForm() {
           <BooleanSelect
             className="w-auto"
             label="Interne/Externe"
-            value={filter.blacklist}
+            value={filter.interne}
             values={["Interne", "Externe"]}
             onChange={changeIntExt}
             onReset={changeIntExt}
@@ -117,7 +112,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2">
             <span>TJM</span>
             <button
-              className={`btn-outline btn-primary btn-sm btn-square btn`}
+              className={`btn-outline btn-primary btn-square btn-sm btn`}
               onClick={resetTJM}
             >
               <Trash size={16} />
@@ -136,7 +131,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2">
             <span>% Satisfaction</span>
             <button
-              className={`btn-outline btn-primary btn-sm btn-square btn`}
+              className={`btn-outline btn-primary btn-square btn-sm btn`}
               onClick={resetSatisfaction}
             >
               <Trash size={16} />
@@ -153,44 +148,11 @@ export default function FormateurManagementForm() {
         </div>
       </div>
       <SearchPart title="Compétences">
-        <div className="flex w-fit items-center gap-4">
-          <div className="space-x-2">
-            <button className="btn-xs btn" onClick={allSkills}>
-              Tous
-            </button>
-            <button className="btn-xs btn" onClick={noSkills}>
-              Aucun
-            </button>
-          </div>
-
-          <div className="input input-sm flex items-center gap-2">
-            {filter.skills.length ? (
-              filter.skills.length == allComp.length ? (
-                <span className="badge">Tous</span>
-              ) : (
-                filter.skills.map((s) => (
-                  <span key={s} className="badge">
-                    {s}
-                  </span>
-                ))
-              )
-            ) : (
-              <span className="badge">Aucun</span>
-            )}
-            <DropdownCheck
-              items={allComp.map((comp) => ({
-                label: comp,
-                value: comp,
-                selected:
-                  filter.skills.length != 0 &&
-                  filter.skills.length != allComp.length
-                    ? filter.skills.includes(comp)
-                    : false,
-              }))}
-              onSubmit={changeSkills}
-            />
-          </div>
-        </div>
+        <DropdownSelect
+          items={allComp}
+          selected={filter.skills}
+          onChange={changeSkills}
+        />
       </SearchPart>
     </div>
   );
