@@ -50,11 +50,6 @@ export default function FormateurManagementForm() {
     [setFilter]
   );
 
-  const changeBlacklist = useCallback(
-    (blacklist?: boolean) => setFilter({ blacklist }),
-    [setFilter]
-  );
-
   const changeSkills = useCallback(
     (comps: string[]) => setFilter({ skills: comps }),
     [setFilter]
@@ -68,7 +63,7 @@ export default function FormateurManagementForm() {
         </span>
         <button
           className={cn({
-            "btn-outline btn-primary btn-square btn-sm btn": true,
+            "btn-outline btn-primary btn-sm btn-square btn": true,
             invisible: isEmpty(),
             visible: !isEmpty(),
           })}
@@ -101,15 +96,6 @@ export default function FormateurManagementForm() {
             values={["Interne", "Externe"]}
             onChange={changeIntExt}
             onReset={changeIntExt}
-          />
-          <div className="divider divider-horizontal"></div>
-          <BooleanSelect
-            className="w-auto"
-            label="Blacklisté ?"
-            value={filter.blacklist}
-            values={["Blacklisté", "Non blacklisté"]}
-            onChange={changeBlacklist}
-            onReset={changeBlacklist}
           />
         </div>
       </SearchPart>

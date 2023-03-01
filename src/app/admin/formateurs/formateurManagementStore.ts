@@ -16,7 +16,6 @@ type FormateurManagementFilter = {
   satisfaction: number[];
   skills: string[];
   interne?: boolean;
-  blacklist?: boolean;
 };
 
 const initialFilter: FormateurManagementFilter = {
@@ -24,7 +23,6 @@ const initialFilter: FormateurManagementFilter = {
   TJM: [0, 999],
   satisfaction: [0, 100],
   skills: allComp,
-  blacklist: false,
 };
 
 const formateurMatcher: Matcher<Formateur, FormateurManagementFilter> = {
@@ -36,8 +34,6 @@ const formateurMatcher: Matcher<Formateur, FormateurManagementFilter> = {
     MatcherFactory.range(filterSatisfaction, satisfaction),
   skills: ({ skills }: Formateur, filterSkills: string[]) =>
     MatcherFactory.stringLists(filterSkills, skills, allComp.length),
-  blacklist: ({ blacklist }: Formateur, filterBlacklist: boolean | undefined) =>
-    MatcherFactory.boolean(filterBlacklist, blacklist),
   interne: ({ interne }: Formateur, filterInterne: boolean | undefined) =>
     MatcherFactory.boolean(filterInterne, interne),
 };

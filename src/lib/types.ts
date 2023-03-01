@@ -6,7 +6,6 @@ export interface Formateur {
   satisfaction: number;
   skills: string[];
   interne: boolean;
-  blacklist: boolean; // TODO Remove
 }
 
 export interface RawModule {

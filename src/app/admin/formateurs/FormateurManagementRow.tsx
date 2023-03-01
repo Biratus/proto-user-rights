@@ -56,22 +56,10 @@ export default function FormateurManagementRow({
   );
 }
 
-function InfoCell({
-  nom,
-  prenom,
-  mail,
-  tel,
-  blacklist,
-}: Formateur & { tel: string }) {
+function InfoCell({ nom, prenom, mail, tel }: Formateur & { tel: string }) {
   return (
     <td>
-      <div
-        className={cn({
-          "flex flex-col text-left": true,
-          "tooltip tooltip-right text-error": blacklist,
-        })}
-        {...(blacklist ? { "data-tip": "Blacklisté" } : {})}
-      >
+      <div className="flex flex-col text-left">
         <span className="font-bold">
           {nom} {prenom}
         </span>
