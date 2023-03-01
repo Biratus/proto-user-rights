@@ -16,7 +16,7 @@ export default function DropdownSelect({
   onChange,
   ...props
 }: DropdownSelectProps) {
-  const allItems = useCallback(() => onChange(items), [onChange]);
+  const allItems = useCallback(() => onChange(items), [onChange, items]);
   const noItems = useCallback(() => onChange([]), [onChange]);
 
   return (

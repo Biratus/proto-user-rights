@@ -29,7 +29,10 @@ export default function FormateurManagementForm() {
     [setFilter]
   );
 
-  const resetTJM = useCallback(() => setFilter({ TJM: [0, 1000] }), []);
+  const resetTJM = useCallback(
+    () => setFilter({ TJM: [0, 1000] }),
+    [setFilter]
+  );
 
   const changeSatisfaction = useCallback(
     (values: number[]) => setFilter({ satisfaction: values }),
@@ -38,7 +41,7 @@ export default function FormateurManagementForm() {
 
   const resetSatisfaction = useCallback(
     () => setFilter({ satisfaction: [0, 100] }),
-    []
+    [setFilter]
   );
 
   const changeIntExt = useCallback(
@@ -63,7 +66,7 @@ export default function FormateurManagementForm() {
           Recherche ({formateurs.length} Formateurs)
         </span>
         <button
-          className={`btn-outline btn-primary btn-square btn-sm btn ${
+          className={`btn-outline btn btn-primary btn-square btn-sm ${
             isEmpty() ? "invisible" : "visible"
           }`}
           onClick={resetFilter}
@@ -112,7 +115,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>TJM</span>
             <button
-              className={`btn-outline btn-primary btn-xs btn`}
+              className={`btn-outline btn btn-primary btn-xs`}
               onClick={resetTJM}
             >
               max
@@ -132,7 +135,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>% Satisfaction</span>
             <button
-              className={`btn-outline btn-primary btn-xs btn`}
+              className={`btn-outline btn btn-primary btn-xs`}
               onClick={resetSatisfaction}
             >
               max

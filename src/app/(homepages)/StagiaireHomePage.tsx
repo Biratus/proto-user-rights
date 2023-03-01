@@ -3,6 +3,7 @@ import {
   formatFullPrettyDate,
   nbOfDaysBetween,
 } from "@/lib/date";
+import { formateurs, modules } from "@/lib/realData";
 import { Filiere, Interval, Module } from "@/lib/types";
 import { startOfToday } from "date-fns";
 import Link from "next/link";
@@ -18,69 +19,12 @@ const defaultStagiaire = {
     nom: "I-230119-DIS-399-SOPRA-JAVA",
     start: new Date(2023, 0, 15),
     end: new Date(2023, 2, 29),
-    formateur: {
-      prenom: "Jaden",
-      nom: "Lockman",
-      mail: "Lockman_Jaden94@yahoo.com",
-    },
+    formateur: formateurs.get("Lockman_Jaden94@yahoo.com")!,
   },
 };
+const moduleOfToday: Module = modules[5];
 
-const moduleOfToday: Module = {
-  id: "fcff45aa-c138-4514-90f9-ee4df059fa8f",
-  name: "ANGULAR",
-  start: new Date(2022, 0, 25),
-  end: new Date(2022, 0, 26),
-  theme: "FRAMEWORKS",
-  filiere: "I-230119-DIS-399-SOPRA-JAVA",
-  formateur: {
-    prenom: "Wallace",
-    nom: "Wintheiser",
-    mail: "Wintheiser88@yahoo.com",
-  },
-};
-
-const toEvaluateModules: Module[] = [
-  {
-    id: "8158f760-1964-402e-89ce-53f4b506cf56",
-    name: "SPRING BOOT, REST ET SECURITY",
-    start: new Date(2022, 0, 15),
-    end: new Date(2022, 0, 16),
-    theme: "FRAMEWORKS",
-    filiere: "I-230119-DIS-399-SOPRA-JAVA",
-    formateur: {
-      prenom: "Ramona",
-      nom: "Schaefer",
-      mail: "Schaefer_Ramona25@yahoo.com",
-    },
-  },
-  {
-    id: "9fb3c6df-493a-4bba-8450-5bb66bd06794",
-    name: "AGILE SCRUM + SAFE",
-    start: new Date(2022, 0, 17),
-    end: new Date(2022, 0, 17),
-    theme: "METHODES ET OUTILS",
-    filiere: "I-230119-DIS-399-SOPRA-JAVA",
-    formateur: {
-      prenom: "Jamarcus",
-      nom: "Beier",
-      mail: "Beier_Jamarcus@yahoo.com",
-    },
-  },
-  {
-    id: "19050a80-68d7-41d1-bc97-fc6851b57a95",
-    name: "UNIX",
-    start: new Date(2022, 0, 20),
-    end: new Date(2022, 0, 22),
-    theme: "FONDAMENTAUX ET BASE DE DONNEES",
-    filiere: "I-230119-DIS-399-SOPRA-JAVA",
-    formateur: {
-      prenom: "Laurie",
-      nom: "Leannon",
-      mail: "Leannon.Laurie41@gmail.com",
-    },
-  },
-];
+const toEvaluateModules: Module[] = [modules[1], modules[2], modules[3]];
 
 export default function StagiaireHomePage({}) {
   const { filiere } = defaultStagiaire;
@@ -91,7 +35,7 @@ export default function StagiaireHomePage({}) {
         <Link
           prefetch={false}
           href="/planning"
-          className="btn-outline btn btn-accent btn-lg flex items-center gap-3"
+          className="btn-outline btn-accent btn-lg btn flex items-center gap-3"
         >
           Planning <Calendar />
         </Link>
@@ -149,7 +93,7 @@ function ModulePanel({ module }: { module: Module }) {
             <Link
               prefetch={false}
               href="/"
-              className="btn-outline btn btn-accent btn-square"
+              className="btn-outline btn-accent btn-square btn"
             >
               <Video />
             </Link>

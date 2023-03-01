@@ -1,4 +1,4 @@
-import { modules } from "@/lib/realData";
+import { modules, toSerializedModule } from "@/lib/realData";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
@@ -15,6 +15,6 @@ export default async function ModulePage({ params: { id } }: ModulePageProps) {
   if (!mod) return notFound();
 
   if (session && session.user.type === "STAGIAIRE")
-    return <EvalutationStagiaire module={mod} />;
+    return <EvalutationStagiaire module={toSerializedModule(mod)} />;
   return <h1>Page du module {mod.name}</h1>;
 }

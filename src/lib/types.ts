@@ -28,6 +28,11 @@ export interface Module {
   formateur: Formateur;
 }
 
+export type SerializedModule = Omit<Module, "start" | "end"> & {
+  start: string;
+  end: string;
+};
+
 export type Style = {
   className: string;
   props?: any;

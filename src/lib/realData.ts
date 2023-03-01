@@ -1,5 +1,6 @@
 import {
   areIntervalsOverlapping,
+  formatISO,
   isAfter,
   isBefore,
   isWithinInterval,
@@ -567,6 +568,12 @@ export const themes = [
     UTILS
   --------
 */
+
+export const toSerializedModule = (mod: Module) => ({
+  ...mod,
+  start: formatISO(mod.start),
+  end: formatISO(mod.end),
+});
 
 const MISSING_FORMATEUR = "na@na.na";
 

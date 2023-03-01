@@ -1,4 +1,5 @@
-import { addDays, formatISO, isWithinInterval, parseISO } from "date-fns";
+import { Module } from "@/lib/types";
+import { addDays, isWithinInterval, parseISO } from "date-fns";
 import { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuidv4 } from "uuid";
 import { isPut, ok, requestError } from "../../../lib/http/backend";
@@ -7,9 +8,9 @@ import { formateurs as formateurReal, modules } from "../../../lib/realData";
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (isPut(req)) {
     let modId = req.query.id;
-    let { split, formateurs } = req.body;
-    console.log(split);
-    if (typeof split === "string") split = parseISO(split);
+    const { split, formateurs } = req.body;
+    console.log({ split });
+    const splitDate = parseISO(split);
 
     let mod;
     let modIndex: number;
@@ -36,8 +37,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     // Check date;
     if (
       !isWithinInterval(split, {
-        start: parseISO(mod.start),
-        end: parseISO(mod.end),
+        start: mod.start,
+        end: mod.end,
       })
     ) {
       return requestError(
@@ -49,11 +50,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     console.log("TOUT est ok");
 
     // Split
-    let m1 = { ...mod };
-    let m2 = { ...mod };
+    let m1: Module = { ...mod };
+    let m2: Module = { ...mod };
 
-    m1.end = formatISO(split);
-    m2.start = formatISO(addDays(split, 1));
+    m1.end = splitDate;
+    m2.start = addDays(splitDate, 1);
     m1.formateur = formateurReal.get(formateurs[0].mail)!;
     m2.formateur = formateurReal.get(formateurs[1].mail)!;
     m2.id = uuidv4();

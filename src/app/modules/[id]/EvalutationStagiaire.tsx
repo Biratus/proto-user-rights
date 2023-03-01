@@ -2,7 +2,7 @@
 
 import CenterWrapper from "@/components/CenterWrapper";
 import { mapISO } from "@/lib/date";
-import { Module, RawModule } from "@/lib/types";
+import { Module, SerializedModule } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import {
   FocusEvent,
@@ -38,7 +38,7 @@ const extra = "4_0";
 export default function EvalutationStagiaire({
   module: rawModule,
 }: {
-  module: RawModule;
+  module: SerializedModule;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
   const modalToggleRef = useRef<HTMLInputElement>(null);
@@ -118,7 +118,7 @@ export default function EvalutationStagiaire({
           <button
             ref={falseSubmit}
             onClick={checkForm}
-            className="btn-success btn-sm btn flex items-center gap-1"
+            className="btn btn-success btn-sm flex items-center gap-1"
             type="button"
           >
             Soumettre
@@ -244,13 +244,13 @@ function MoreCommentsModal() {
         <div className="modal-action">
           <label
             htmlFor="additionalCommentsModal"
-            className="btn-outline btn-error btn"
+            className="btn-outline btn btn-error"
           >
             Annuler
           </label>
           <button
             type="submit"
-            className="btn-success btn flex items-center gap-1"
+            className="btn btn-success flex items-center gap-1"
           >
             Soumettre <Send />
           </button>
