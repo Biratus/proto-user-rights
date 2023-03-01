@@ -32,11 +32,7 @@ export default function DropdownCheck<T>({
   };
   return (
     <div className={`dropdown-${side} dropdown flex items-center`}>
-      <label
-        tabIndex={0}
-        // className={`btn-outline btn-primary btn-${size} btn-square btn m-1`}
-        className={`badge badge-${size} cursor-pointer`}
-      >
+      <label tabIndex={0} className={`badge badge-${size} cursor-pointer`}>
         {/* <Plus /> */}
         <MoreHorizontal />
       </label>

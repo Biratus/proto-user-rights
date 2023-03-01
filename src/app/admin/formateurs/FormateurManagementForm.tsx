@@ -4,6 +4,7 @@ import BooleanSelect from "@/components/BooleanSelect";
 import DoubleRangeInput from "@/components/DoubleRangeInput";
 import DropdownSelect from "@/components/DropdownSelect";
 import { allComp } from "@/lib/realData";
+import cn from "classnames";
 import { ChangeEvent, PropsWithChildren, useCallback } from "react";
 import { Trash, X } from "react-feather";
 import {
@@ -66,9 +67,11 @@ export default function FormateurManagementForm() {
           Recherche ({formateurs.length} Formateurs)
         </span>
         <button
-          className={`btn-outline btn btn-primary btn-square btn-sm ${
-            isEmpty() ? "invisible" : "visible"
-          }`}
+          className={cn({
+            "btn-outline btn-primary btn-square btn-sm btn": true,
+            invisible: isEmpty(),
+            visible: !isEmpty(),
+          })}
           onClick={resetFilter}
         >
           <Trash size={16} />
@@ -115,7 +118,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>TJM</span>
             <button
-              className={`btn-outline btn btn-primary btn-xs`}
+              className="btn-outline btn-primary btn-xs btn"
               onClick={resetTJM}
             >
               max
@@ -135,7 +138,7 @@ export default function FormateurManagementForm() {
           <div className="flex items-center space-x-2 border-b border-base-300 pb-2">
             <span>% Satisfaction</span>
             <button
-              className={`btn-outline btn btn-primary btn-xs`}
+              className="btn-outline btn-primary btn-xs btn"
               onClick={resetSatisfaction}
             >
               max

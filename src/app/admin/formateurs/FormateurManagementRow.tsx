@@ -3,6 +3,7 @@
 import DropdownCheck from "@/components/DropdownCheck";
 import { allComp } from "@/lib/realData";
 import { Formateur } from "@/lib/types";
+import cn from "classnames";
 import { useCallback, useState } from "react";
 import { getFormateurManagementFilter } from "./formateurManagementStore";
 
@@ -21,14 +22,17 @@ export default function FormateurManagementRow({
   return (
     <tr>
       <td
-        className={`${formateur.interne ? "text-red-500" : "text-green-500"}`}
+        className={cn({
+          "text-red-500": !formateur.interne,
+          "text-green-500": formateur.interne,
+        })}
       >
         {formateur.interne ? "Interne" : "Externe"}
       </td>
       <InfoCell {...{ ...formateur, tel: "0606040405" }} />
       <td>Formateur</td>
       <td>
-        <div className={`wrap flex items-center gap-2`}>
+        <div className="wrap flex items-center gap-2">
           <CompList
             items={formateur.skills}
             selected={
@@ -62,9 +66,10 @@ function InfoCell({
   return (
     <td>
       <div
-        className={`flex flex-col text-left ${
-          blacklist ? "tooltip tooltip-right text-error" : ""
-        }`}
+        className={cn({
+          "flex flex-col text-left": true,
+          "tooltip tooltip-right text-error": blacklist,
+        })}
         {...(blacklist ? { "data-tip": "Blacklisté" } : {})}
       >
         <span className="font-bold">
@@ -90,11 +95,11 @@ function CompList({
       {items.map((label, i) => (
         <div
           key={i}
-          className={`badge badge-md ${
-            selected.includes(label)
-              ? "badge-success -order-1"
-              : "badge-primary"
-          }`}
+          className={cn({
+            "badge badge-md": true,
+            "badge-success -order-1": selected.includes(label),
+            "badge-primary": !selected.includes(label),
+          })}
         >
           {label}
         </div>

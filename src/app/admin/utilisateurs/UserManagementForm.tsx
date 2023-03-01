@@ -1,6 +1,7 @@
 "use client";
 
 import { upperFirst } from "@/lib/strings";
+import cn from "classnames";
 import { ChangeEvent, useCallback } from "react";
 import { Trash, X } from "react-feather";
 import { useUserManagementFilter } from "./userManagementStore";
@@ -36,9 +37,10 @@ export default function UserManagementForm() {
       <div className="flex items-center gap-3">
         <span className="text-lg font-bold">Recherche</span>
         <button
-          className={`btn-outline btn-primary btn-square btn-sm btn ${
-            isEmpty() ? "invisible" : "visible"
-          }`}
+          className={cn("btn-outline btn-primary btn-square btn-sm btn ", {
+            invisible: isEmpty(),
+            visible: !isEmpty(),
+          })}
           onClick={resetFilter}
         >
           <Trash size={16} />

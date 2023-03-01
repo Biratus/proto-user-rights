@@ -1,5 +1,6 @@
 "use client";
 
+import cn from "classnames";
 import { PropsWithoutRef } from "react";
 
 type BooleanSelectProps = {
@@ -21,7 +22,9 @@ export default function BooleanSelect({
     <div className="form-control" {...props}>
       <label className="label justify-end">
         <button
-          className={`btn-xs btn ${value === undefined ? "btn-disabled" : ""}`}
+          className={cn("btn-xs btn", {
+            "btn-disabled": value == undefined,
+          })}
           onClick={() => onReset()}
         >
           tous

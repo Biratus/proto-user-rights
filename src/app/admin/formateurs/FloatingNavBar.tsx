@@ -1,6 +1,8 @@
 "use client";
 
+import { emptyStyle } from "@/lib/style";
 import { Style } from "@/lib/types";
+import cn from "classnames";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 type FloatingNavBarProps = {
@@ -9,8 +11,8 @@ type FloatingNavBarProps = {
 };
 
 export default function FloatingNavBar({
-  style,
-  pinnedStyle,
+  style = emptyStyle(),
+  pinnedStyle = emptyStyle(),
   children,
 }: PropsWithChildren & FloatingNavBarProps) {
   const barRef = useRef<HTMLDivElement>(null);
@@ -30,16 +32,16 @@ export default function FloatingNavBar({
   }, []);
 
   return (
-    <div className={`sticky -top-1 z-20 flex justify-center`} ref={barRef}>
+    <div className="sticky -top-1 z-20 flex justify-center" ref={barRef}>
       <div
-        className={`navbar bg-secondary ${style ? style.className : ""} ${
-          isPinned && pinnedStyle ? pinnedStyle.className : ""
-        } transition-all duration-300`}
+        className={cn({
+          [`navbar bg-secondary transition-all duration-300 ${style.className}`]:
+            true,
+          [pinnedStyle.className]: isPinned,
+        })}
         style={{
-          ...(style && style.props ? style.props : {}),
-          ...(isPinned && pinnedStyle && pinnedStyle.props
-            ? pinnedStyle.props
-            : {}),
+          ...(style.props ? style.props : {}),
+          ...(isPinned && pinnedStyle.props ? pinnedStyle.props : {}),
         }}
       >
         {children}
